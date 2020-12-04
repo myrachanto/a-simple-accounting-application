@@ -21,10 +21,10 @@
     </v-toolbar>
       </v-col></v-row>
     <v-row><v-col>
-<h1>All Receipts</h1>
+<h1>All PAyments</h1>
  <v-data-table
     :headers="headers1"
-    :items="allreceipts"
+    :items="allpayments"
     :items-per-page="5"
     class="elevation-1"
   >  <template v-slot:item.actions="{ item }">
@@ -38,7 +38,7 @@
             </template></v-data-table>
   </v-col>
   <v-col>
-<h1>Pending Receipts</h1>
+<h1>Pending payments</h1>
  <v-data-table
     :headers="headers"
     :items="pending"
@@ -93,7 +93,7 @@
  import axios from '@/axios'
 import back from '@/layouts/back'
 export default {
-      name: 'receiptsIndex',
+      name: 'paymentsIndex',
     components:{
         back,
         
@@ -102,14 +102,14 @@ export default {
           return{
             status:'',
             form:{},
-              title:'receipts',
-              source: '/api/receipts',
-              create: '/receipts/create',
-              show: '/receipts/',
+              title:'payments',
+              source: '/api/payments',
+              create: '/payments/create',
+              show: '/payments/',
               dialog: false,
               headers:[
                 { text: 'Id', value: 'ID' },
-                { text: 'Name', value: 'customername' },
+                { text: 'Name', value: 'suppliername' },
                 { text: 'Description', value: 'description' },
                 { text: 'Payment Form', value: 'type' },
                 { text: 'Clearance Date', value: 'clearancedate' },
@@ -119,7 +119,7 @@ export default {
               ],
                headers1:[
                 { text: 'Id', value: 'ID' },
-                { text: 'Name', value: 'customername' },
+                { text: 'Name', value: 'suppliername' },
                 { text: 'Description', value: 'description' },
                 { text: 'Payment Form', value: 'type' },
                 { text: 'Clearance Date', value: 'clearancedate' },
@@ -132,7 +132,7 @@ export default {
                   "cleared",
                 ],
               operators:['like'],
-             allreceipts:[],
+             allpayments:[],
              pending:[],
             
           }
@@ -169,7 +169,7 @@ export default {
             let fd = new FormData();
             fd.append("code", this.form.code);
             fd.append("status", this.status);
-            await axios.post("api/receipts/transaction", fd, {
+            await axios.post("api/payments/transaction", fd, {
               "Content-Type": "multipart/form-data",
             });
             this.close()
@@ -183,8 +183,8 @@ export default {
           async GetData(){
             try{
               const {data} = await axios.get(this.source)
-                const {allreceipts,pending} = data  
-              this.allreceipts = allreceipts
+                const {allpayments,pending} = data  
+              this.allpayments = allpayments
               this.pending = pending
                 // console.log(data)
             }catch(err){

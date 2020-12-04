@@ -216,8 +216,8 @@ export default {
       redirect: "/sinvoice",
       store: "api/sinvoice",
       cred: "api/sinvoice/credit",
-      cart: "api/carts",
-      cancel: 'api/carts',
+      cart: "api/scarts",
+      cancel: 'api/scarts',
       method: "post",
       snackbar: false,
       timeout: 3000,
@@ -332,7 +332,7 @@ export default {
         fd.append("quantity", this.form.quantity);
         fd.append("name", this.form.name);
         fd.append("code", this.form.code);
-        await axios.post("api/carts/credit", fd, {
+        await axios.post("api/scarts/credit", fd, {
           "Content-Type": "multipart/form-data",
         });
         this.close()
@@ -400,7 +400,7 @@ export default {
 
     async cancelcredit(code) {
       try {
-        const response = await axios.delete(`api/carts/cancel/${code}`)
+        const response = await axios.delete(`api/scarts/cancel/${code}`)
         if (response) {
           this.$router.push(this.redirect)
         }
@@ -434,7 +434,7 @@ export default {
       try {
         console.log(this.$route.params);
         const { data } = await axios.get(
-          `api/carts/creditslist/${this.sinvoice.code}`
+          `api/scarts/creditslist/${this.sinvoice.code}`
         );
         this.credits = data;
       } catch (err) {

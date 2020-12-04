@@ -74,7 +74,7 @@
 <script>
  import axios from '@/axios'
  import suppliercard from '@/components/cards/customercard'
- import invoicecard from '@/components/cards/invoicecard'
+ import invoicecard from '@/components/cards/sinvoicecard'
 
 import back from '@/layouts/back'
 
@@ -140,9 +140,9 @@ export default {
   async fetchData(){
       try{
           const {data} = await axios.get(`${this.store}/${this.$route.params.id}`)
-          const {supplier, invoices,grns} = data
+          const {supplier, sinvoices,grns} = data
           this.form = supplier
-          this.invoices = invoices
+          this.invoices = sinvoices
           this.credits = grns
         }catch(err){
          this.snackbar = true

@@ -17,6 +17,7 @@ import {sales} from "./modules/sales"
 import {Expences} from "./modules/expence"
 import {Receipts} from "./modules/receipts"
 import {SupInvoice} from "./modules/suppierinvoice"
+import {Payments} from "./modules/payments"
 
 Vue.use(VueRouter);
 
@@ -37,7 +38,8 @@ const routes = [
   ...sales,
   ...Expences,
   ...Receipts,
-  ...SupInvoice
+  ...SupInvoice,
+  ...Payments
 
   
 ];

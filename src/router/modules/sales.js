@@ -2,6 +2,9 @@ import store from '@/store'
 import Dashboard from '@/views/admin/Reports/Sales/Dashboard'
 import Expences from '@/views/admin/Reports/Sales/Expences'
 import Customers from '@/views/admin/Reports/Sales/Customers'
+import Suppliers from '@/views/admin/Reports/Sales/Suppliers'
+import Receipts from '@/views/admin/Reports/Sales/Receipts'
+import Payments from '@/views/admin/Reports/Sales/Payments'
 
 
 var token = store.getters.Token
@@ -22,6 +25,27 @@ export const sales = [
     }
   }},
   {path: "/customers/report",component: Customers, beforeEnter(to, from, next) {
+    if (token && isadmin){
+      next()
+    }else{
+      next('/')
+    }
+  }},
+  {path: "/suppliers/report",component: Suppliers, beforeEnter(to, from, next) {
+    if (token && isadmin){
+      next()
+    }else{
+      next('/')
+    }
+  }},
+  {path: "/receipts/report",component: Receipts, beforeEnter(to, from, next) {
+    if (token && isadmin){
+      next()
+    }else{
+      next('/')
+    }
+  }},
+  {path: "/payments/report",component: Payments, beforeEnter(to, from, next) {
     if (token && isadmin){
       next()
     }else{

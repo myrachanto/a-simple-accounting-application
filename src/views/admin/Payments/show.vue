@@ -9,7 +9,7 @@
                  <v-col cols="12" md="12">
                     <v-card-text class="mt-12">
                       <h1 class="text-center display-2 teal--text text--accent-3">
-                       Receipt Information - {{form.code}}
+                       Payment Information - {{form.code}}
                       </h1>
                                                         <template>
                                     <v-card color="basil">
@@ -24,11 +24,11 @@
                                             flat
                                           >
                                             <v-card-text>
-                                              <v-card-title class="text-center display-1">Name: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.customername}}</span></v-card-title>
+                                              <v-card-title class="text-center display-1">Name: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.suppliername}}</span></v-card-title>
                                               <v-card-title class="text-center display-1">Description: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.description}}</span></v-card-title>
                                               <v-card-title class="text-center display-1">Payment Form: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.type}}</span></v-card-title>
                                               <v-card-title class="text-center display-1">Clearnce Date: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.clearancedate}}</span></v-card-title>
-                                              <v-card-title class="text-center display-1">Amount: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.amount}}</span></v-card-title>
+                                              <v-card-title class="text-center display-1">Amount: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.amount}} /=</span></v-card-title>
                                               <v-card-title class="text-center display-1">Status: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.status}}</span></v-card-title>
                                            </v-card-text>
                                           </v-card>
@@ -57,7 +57,7 @@
 import back from '@/layouts/back'
 
 export default {
-  name: "receiptsshow",
+  name: "paymentsshow",
   components: {
       back
     },
@@ -67,9 +67,9 @@ export default {
         errs:{},
         option:{},
         title:'Create',
-        init:'api/receipts',
-        redirect: '/receipts',
-        store: 'api/receipts',
+        init:'api/payments',
+        redirect: '/payments',
+        store: 'api/payments',
         method: 'post',
         snackbar:false,
         timeout:3000

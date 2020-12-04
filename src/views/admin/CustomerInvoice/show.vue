@@ -211,7 +211,7 @@ export default {
         this.invoice = invoices
         this.expences = expences
         // this.credits = credits
-        this.fetchCreditData()
+        // this.fetchCreditData()
       } catch (err) {
         this.snackbar = true
         //   console.log(err)
@@ -219,19 +219,19 @@ export default {
       }
     },
 
-    async fetchCreditData() {
-      try {
-        const { data } = await axios.get(
-          `api/carts/creditslist/${this.invoice.code}`
-        );
-        this.credits = data; 
-        console.log(data)
-      } catch (err) {
-        this.snackbar = true;
-        //   console.log(err)
-        this.errs = err.response.data;
-      }
-    },
+    // async fetchCreditData() {
+    //   try {
+    //     const { data } = await axios.get(
+    //       `api/carts/creditslist/${this.invoice.code}`
+    //     );
+    //     this.credits = data; 
+    //     console.log(data)
+    //   } catch (err) {
+    //     this.snackbar = true;
+    //     //   console.log(err)
+    //     this.errs = err.response.data;
+    //   }
+    // },
   },
 }
 </script>

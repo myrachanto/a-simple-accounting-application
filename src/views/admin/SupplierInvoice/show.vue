@@ -2,7 +2,7 @@
   <back>
     <v-form>
       <v-container class="fill-height">
-        <v-row align="center" justify="center" v-if="customer">
+        <v-row align="center" justify="center" v-if="supplier">
           <v-col>
             <h1>Supplier sinvoice</h1>
           </v-col>
@@ -19,31 +19,31 @@
           </v-col>
 
         </v-row>
-        <v-row align="center" justify="center" v-if="customer">
+        <v-row align="center" justify="center" v-if="supplier">
           <v-col cols="12" sm="8" md="4">
             <v-card class="mx-auto">
-              <v-card-title>Phone: {{customer.phone}}</v-card-title>
+              <v-card-title>Phone: {{supplier.phone}}</v-card-title>
               <v-card-title>Code: {{sinvoice.code}}</v-card-title>
             </v-card>
           </v-col>
           <v-col cols="12" sm="8" md="4">
             <v-card class="mx-auto">
-              <v-card-title>Customer Name: {{customer.name}} </v-card-title>
-              <v-card-title>Company: {{customer.company}}</v-card-title>
+              <v-card-title>supplier Name: {{supplier.name}} </v-card-title>
+              <v-card-title>Company: {{supplier.company}}</v-card-title>
             </v-card>
           </v-col>
           <v-col cols="12" sm="8" md="4">
             <v-card class="mx-auto" min-height="130">
-              <p class="display-1"> address:{{customer.address}}</p>
+              <p class="display-1"> address:{{supplier.address}}</p>
             </v-card>
           </v-col>
         </v-row>
 
-        <v-row  v-if="transactions.length > 0">
+        <v-row  v-if="stransactions.length > 0">
           <v-col cols="12" md="12">
             <v-card>
                  <div><h1>Products</h1></div>
-              <v-data-table :headers="transactionheader" :items="transactions" item-key="ID" class="elevation-1 display-2" style="font-size:10rem" :footer-props="{
+              <v-data-table :headers="transactionheader" :items="stransactions" item-key="ID" class="elevation-1 display-2" style="font-size:10rem" :footer-props="{
                   'items-per-page-options': [5,10, 20, 30, 40, 50]
                 }" :items-per-page="10"> </v-data-table>
             </v-card>
@@ -107,7 +107,7 @@ import axios from '@/axios'
 import back from '@/layouts/back'
 
 export default {
-  name: "Customershow",
+  name: "suppliershow",
   components: {
     back
   },
@@ -204,14 +204,14 @@ export default {
           sinvoices,
           stransactions,
           expences,
-          // credits
+          grns
         } = data
         this.supplier = supplier
         this.stransactions = stransactions
         this.sinvoice = sinvoices
         this.expences = expences
-        // this.credits = credits
-        this.fetchCreditData()
+        this.credits = grns
+        // this.fetchCreditData()
       } catch (err) {
         this.snackbar = true
         //   console.log(err)
@@ -219,19 +219,19 @@ export default {
       }
     },
 
-    async fetchCreditData() {
-      try {
-        const { data } = await axios.get(
-          `api/carts/creditslist/${this.sinvoice.code}`
-        );
-        this.credits = data; 
-        console.log(data)
-      } catch (err) {
-        this.snackbar = true;
-        //   console.log(err)
-        this.errs = err.response.data;
-      }
-    },
+    // async fetchCreditData() {
+    //   try {
+    //     const { data } = await axios.get(
+    //       `api/scarts/creditslist/${this.sinvoice.code}`
+    //     );
+    //     this.credits = data; 
+    //     console.log(data)
+    //   } catch (err) {
+    //     this.snackbar = true;
+    //     //   console.log(err)
+    //     this.errs = err.response.data;
+    //   }
+    // },
   },
 }
 </script>

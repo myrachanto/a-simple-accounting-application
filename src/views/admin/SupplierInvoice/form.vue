@@ -342,7 +342,7 @@ export default {
         },
         {
           text: 'Price',
-          value: 'SPrice'
+          value: 'BPrice'
         },
         {
           text: 'Tax',
@@ -517,7 +517,7 @@ export default {
           taxs,
           products,
           discounts,
-          paymentforms,
+          paymentforms, 
           expences
         } = data
         // this.suppliers = suppliers

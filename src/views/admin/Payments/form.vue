@@ -12,7 +12,7 @@
                  <v-col cols="12" md="12">
                     <v-card-text class="mt-12">
                       <h1 class="text-center display-2 teal--text text--accent-3">
-                        New Receipt No# {{code}}
+                        New Payment No# {{code}}
                       </h1>
                       
                       <template >  
@@ -39,22 +39,22 @@
                                       cols="12"
                                       md="6"
                                     >  <v-autocomplete
-                                        v-model="customer"
-                                        :items="customers"
+                                        v-model="supplier"
+                                        :items="suppliers"
                                         chips
                                         clearable
                                         hide-details
                                         hide-selected
                                         item-text="name"
                                         item-value="name"
-                                        label="Search Customer..."
+                                        label="Search Supplier..."
                                         solo
                                       >
                                         <template v-slot:no-data>
                                           <v-list-item>
                                             <v-list-item-title>
                                               Search for 
-                                              <strong>Customer</strong>
+                                              <strong>Supplier</strong>
                                             </v-list-item-title>
                                           </v-list-item>
                                         </template>
@@ -286,14 +286,14 @@ export default {
         ],
         errs:{},
         pay:'',
-        customer:'',
-        customers:[],
+        supplier:'',
+        suppliers:[],
         code: '',
         paymentforms:[],
         title:'Create',
-        init:'api/receipts/view',
-        redirect: '/receipts',
-        store: 'api/receipts',
+        init:'api/payments/view',
+        redirect: '/payments',
+        store: 'api/payments',
         method: 'post',
         snackbar:false,
         timeout:3000
@@ -310,7 +310,7 @@ export default {
    async save(){
       try{
             let fd = new FormData();
-                 fd.append("customername", this.customer)
+                 fd.append("suppliername", this.supplier)
                  fd.append("amount", this.form.amount)
                  fd.append("description", this.form.description)
                  fd.append("clearancedate", this.form.clearancedate)
@@ -332,8 +332,8 @@ export default {
         try{
             // console.log(token)
            const {data} = await axios.get(`${this.init}`)
-          const { customers, code, paymentforms } = data
-            this.customers = customers
+          const { suppliers, code, paymentforms } = data
+            this.suppliers = suppliers
             this.paymentforms = paymentforms
             this.code = code
         }catch(err){

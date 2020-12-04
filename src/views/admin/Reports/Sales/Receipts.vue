@@ -1,0 +1,121 @@
+<template>
+<back>
+ <v-container fluid>
+              <h1>Recipts report</h1>
+        <v-row align="center"
+              justify="center"
+              > 
+              <v-col v-if="cleared"
+                class="auto"
+                cols="12"
+                sm="8"
+                md="4">
+                 <Dcard :title="cleared.Name" :total="cleared.Total" 
+                 :desc="cleared.Description" :icon="`mdi-cash-usd-outline`" />
+                </v-col>
+                <v-col v-if="pending"
+                class="auto"
+                cols="12"
+                sm="8"
+                md="4">
+                 <Dcard :title="pending.Name" :total="pending.Total" :desc="pending.Description" :icon="`mdi-cash-usd`"/>
+                </v-col>
+                <v-col  v-if="canceled"
+                class="auto"
+                cols="12"
+                sm="8"
+                md="4">
+                 <Dcard :title="canceled.Name" :total="canceled.Total" :desc="canceled.Description" :icon="`mdi-cash-remove`" />
+                </v-col> 
+      </v-row>
+
+ <v-row align="center"
+              justify="center"
+              > 
+             
+              <v-col
+                class="auto"
+                cols="12"
+                sm="8"
+                md="10">
+                <div class="overline mb-4 green--text ">
+                        <h2 >All Receipts</h2>
+                </div>
+                 <v-data-table
+                  :headers="headers"
+                  :items="all"
+                  item-key="name"
+                  class="elevation-1 display-2"
+                  style="font-size:10rem"
+                :footer-props="{
+                    'items-per-page-options': [5,10, 20, 30, 40, 50]
+                  }"
+                :items-per-page="10"
+                ></v-data-table>
+              </v-col>
+            </v-row>
+  </v-container>
+</back>
+</template>
+
+<script>
+import axios from '@/axios'
+import Dcard from '@/components/cards/dashboardcard'
+import back from '@/layouts/back'
+export default {
+    data(){
+    return{
+      canceled:{},
+      pending:{},
+      cleared:{},
+      all:[],
+      errs:{},
+       headers:[
+                { text: 'Id', value: 'ID' },
+                { text: 'Name', value: 'suppliername' },
+                { text: 'Description', value: 'description' },
+                { text: 'Payment Form', value: 'type' },
+                { text: 'Clearance Date', value: 'clearancedate' },
+                { text: 'Amount', value: 'amount' },
+                { text: 'Status', value: 'status' },
+              ],
+    }
+  },
+
+  components:{
+    back,
+    Dcard
+  },
+  created() {
+      this.fetchData()
+      // this.newInvoice()
+    
+  },
+  methods:{
+    // View(code){
+    //   this.$router.push(`/invoice/show/${code }`)
+    // },
+    async fetchData(){
+      try{
+          const {data} = await axios.get("api/receipts/report")
+          this.dcards = data
+           const { all, cleared,pending,canceled } = data
+           this.all = all
+           this.cleared = cleared
+           this.pending = pending
+           this.canceled = canceled
+          //  console.log(debtors,transactions)
+        }catch(err){
+         this.snackbar = true
+        //   console.log(err)
+        this.errs = err.response.data
+        }
+    }
+  }
+
+}
+</script>
+
+<style>
+
+</style>
