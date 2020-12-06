@@ -168,6 +168,7 @@ export default {
                     name: this.form.name,
                     title: this.form.title,
                     description: this.form.description,
+                    usercode: this.$store.getters.usercode,
                 })
                 if(response.status === 201){
                     this.$router.push(this.redirect)

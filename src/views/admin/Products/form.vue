@@ -239,6 +239,7 @@ export default {
                  fd.append("description", this.form.description)
                  fd.append("category", this.form.category)
                  fd.append("sprice", this.form.sprice)
+                 fd.append("usercode", this.$store.getters.usercode);
                 const {data} = await axios.post(this.store, fd ,{'Content-Type': 'multipart/form-data'})
               if(data){
                 this.$router.push(this.redirect)

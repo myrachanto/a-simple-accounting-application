@@ -4,43 +4,50 @@
         <v-row align="center"
               justify="center"
               >
-                <v-col v-if="invoices"
+                <v-col v-if="sales"
                 class="auto"
                 cols="12"
                 sm="8"
-                md="4">
-                 <Dcard :title="invoices.Name" :total="invoices.Total" :desc="invoices.Description" :icon="invoices.Icon" :rout="`/invoice`"/>
+                md="3">
+                 <Dcard :title="sales.Name" :total="sales.Total" :desc="sales.Description" :icon="sales.Icon" />
                 </v-col>
-                 <v-col  v-if="products"
+                 <v-col  v-if="purchases"
+                class="auto"
+                cols="12"
+                sm="8"
+                md="3">
+                 <Dcard :title="purchases.Name" :total="purchases.Total" :desc="purchases.Description" :icon="purchases.Icon" />
+                </v-col>
+                 <v-col  v-if="receipts"
+                class="auto"
+                cols="12"
+                sm="8"
+                md="3">
+                 <Dcard :title="receipts.Name" :total="receipts.Total" :desc="receipts.Description" :icon="receipts.Icon" />
+                </v-col> <v-col  v-if="payments"
+                class="auto"
+                cols="12"
+                sm="8"
+                md="3">
+                 <Dcard :title="payments.Name" :total="payments.Total" :desc="payments.Description" :icon="payments.Icon"  />
+                </v-col> <v-col  v-if="expences"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="4">
-                 <Dcard :title="products.Name" :total="products.Total" :desc="products.Description" :icon="products.Icon" :rout="`/products`"/>
-                </v-col> <v-col  v-if="categorys"
-                class="auto"
-                cols="12"
-                sm="8"
-                md="4">
-                 <Dcard :title="categorys.Name" :total="categorys.Total" :desc="categorys.Description" :icon="categorys.Icon"  :rout="`/category`"/>
-                </v-col> <v-col  v-if="majorcats"
-                class="auto"
-                cols="12"
-                sm="8"
-                md="4">
-                 <Dcard :title="majorcats.Name" :total="majorcats.Total" :desc="majorcats.Description" :icon="majorcats.Icon"  :rout="`/majorcat`"/>
-                </v-col> <v-col  v-if="users"
-                class="auto"
-                cols="12"
-                sm="8"
-                md="4">
-                 <Dcard :title="users.Name" :total="users.Total" :desc="users.Description" :icon="users.Icon"  :rout="`/users`"/>
+                 <Dcard :title="expences.Name" :total="expences.Total" :desc="expences.Description" :icon="expences.Icon" />
                 </v-col> <v-col  v-if="customers"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="4">
-                 <Dcard :title="customers.Name" :total="customers.Total" :desc="customers.Description" :icon="customers.Icon"  :rout="`/customer`"/>
+                 <Dcard :title="customers.Name" :total="customers.Total" :desc="customers.Description" :icon="customers.Icon" />
+                </v-col> <v-col  v-if="suppliers"
+                class="auto"
+                cols="12"
+                sm="8"
+                md="4">
+                 <Dcard :title="suppliers.Name" :total="suppliers.Total" :desc="suppliers.Description" :icon="suppliers.Icon"/>
                 </v-col>
       </v-row>
   </v-container>
@@ -54,12 +61,13 @@ import back from '@/layouts/back'
 export default {
     data(){
     return{
-      invoices:{},
+      receipts:{},
       customers:{},
-      users:{},
-      products:{},
-      majorcats:{},
-      categorys:{},   
+      payments:{},
+      purchases:{},
+      sales:{},
+      suppliers:{}, 
+      expences:{},   
       errs:{},
     }
   },
@@ -81,13 +89,14 @@ export default {
       try{
           const {data} = await axios.get("api/dashboard")
           this.dcards = data
-           const { invoices, categorys,products,majorcats,customers,users } = data
-           this.invoices = invoices
+           const { receipts, payments,purchases,sales,customers,suppliers,expences } = data
+           this.receipts = receipts
            this.customers = customers
-           this.products = products
-           this.users = users
-           this.categorys = categorys
-           this.majorcats =majorcats
+           this.purchases = purchases
+           this.sales = sales
+           this.suppliers = suppliers
+           this.expences =expences
+           this.payments =payments
         }catch(err){
          this.snackbar = true
         //   console.log(err)

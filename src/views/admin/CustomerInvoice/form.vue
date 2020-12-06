@@ -408,6 +408,7 @@ export default {
         fd.append("description", this.form.description);
         fd.append("code", this.code);
         fd.append("amount", this.form.amount);
+        fd.append("usercode", this.$store.getters.usercode);
         await axios.post("api/expencetransanctions", fd, {
           "Content-Type": "multipart/form-data",
         });
@@ -424,6 +425,8 @@ export default {
         // console.log(this.product)
         let fd = new FormData();
         fd.append("customername", this.customer.name)
+        fd.append("customercode", this.customer.customercode) 
+        fd.append("usercode", this.$store.getters.usercode);
         fd.append("name", this.product)
         fd.append("code", this.code)
         fd.append("quantity", this.form.quantity)
@@ -489,6 +492,7 @@ export default {
         console.log(this.customer)
         let fd = new FormData();
         fd.append("customername", this.customer.name)
+        fd.append("customercode", this.customer.customercode)
         fd.append("terms", this.invoicedetails.terms)
         fd.append("code", code)
         fd.append("instructions", this.invoicedetails.instructions)

@@ -172,7 +172,7 @@ export default {
         timeout:3000
     }
   },
-  created(){
+  created(){ 
     this.fetchData()
   },
   methods:{
@@ -187,6 +187,7 @@ export default {
                     title: this.form.title,
                     description: this.form.description,
                     majorcategory: this.form.majorcategory,
+                    usercode: this.$store.getters.usercode,
                 })
                 if(response.status === 201){
                     this.$router.push(this.redirect)

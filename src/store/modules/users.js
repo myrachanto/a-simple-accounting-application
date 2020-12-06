@@ -5,6 +5,7 @@ const state = {
     username: localStorage.getItem('username') || null,
     picture: localStorage.getItem('picture') || null,
     admin: localStorage.getItem('admin') || null,
+    usercode: localStorage.getItem('usercode') || null,
     errs: {},
 }
 const getters ={
@@ -21,6 +22,8 @@ const getters ={
         return state.picture
     },
     username: (state)=> state.username,
+
+    usercode: (state)=> state.usercode,
 } 
 const actions ={ 
         
@@ -35,7 +38,8 @@ const mutations = {
         (state.token = data.Token),
         (state.username = data.uname),
         (state.picture = data.picture),
-        (state.admin = data.admin)
+        (state.admin = data.admin),
+        (state.usercode = data.usercode)
         // router.push('/dashboard');
     }, 
     logout: (state)=> { 
@@ -43,6 +47,7 @@ const mutations = {
         (state.username = null),
         (state.picture = null),
         (state.admin = null),
+        (state.usercode = null),
         router.replace('/');
     },
     setError: (state, errs)=> {

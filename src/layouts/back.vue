@@ -6,7 +6,7 @@
     >
       <v-list-item>
         <v-list-item-avatar>
-          <v-img :src="`/imgs/users/${picture}`"></v-img>
+          <v-img :src="`http://localhost:5000/imgs/users/${picture}`"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
@@ -15,7 +15,7 @@
             <v-btn icon @click="logout">
               <v-icon >mdi mdi-logout</v-icon>
             </v-btn>
-      </v-list-item>
+      </v-list-item> 
 
       <v-divider></v-divider>
 
@@ -134,12 +134,12 @@ import foot from './foot'
                 {title:'PaymentForms', icon:'mdi mdi-clipboard-text',route:'/paymentform'},
                 {title:'Expence', icon:'mdi mdi-clipboard-outline',route:'/expence'},
                 {title:'AllocatePayments', icon:'mdi mdi-checkbox-multiple-marked'},
-                {title:'ALlocateReceipts', icon:'mdi mdi-checkbox-multiple-marked-outline'},
+                {title:'ALlocateReceipts', icon:'mdi mdi-checkbox-multiple-marked-outline',route:'/receipts/allocation'},
             ],
           title: 'Accounts',
         },
         {
-          action: 'mdi mdi-account-multiple',
+          action: 'mdi-file-chart-outline',
           items: [
                 {title:'Sales', icon:'mdi  mdi-account-multiple',route:'/sales/dashboard'},
                 {title:'Expences', icon:'mdi mdi-clipboard-outline',route:'/expences/report'},
