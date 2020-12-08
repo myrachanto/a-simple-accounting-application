@@ -1,5 +1,6 @@
 import store from '@/store'
-import Dashboard from '@/views/admin/Reports/Sales/Dashboard'
+import Sales from '@/views/admin/Reports/Sales/Sales'
+import Purchases from '@/views/admin/Reports/Sales/Purchases'
 import Expences from '@/views/admin/Reports/Sales/Expences'
 import Customers from '@/views/admin/Reports/Sales/Customers'
 import Suppliers from '@/views/admin/Reports/Sales/Suppliers'
@@ -8,9 +9,16 @@ import Payments from '@/views/admin/Reports/Sales/Payments'
 
 
 var token = store.getters.Token
-var isadmin = store.getters.isadmin = true
+var isadmin = store.getters.isadmin = true 
 export const sales = [
-  {path: "/sales/dashboard",component: Dashboard, beforeEnter(to, from, next) {
+  {path: "/sales/report",component: Sales, beforeEnter(to, from, next) {
+    if (token && isadmin){
+      next()
+    }else{
+      next('/')
+    }
+  }},
+  {path: "/purchases/report",component: Purchases, beforeEnter(to, from, next) {
     if (token && isadmin){
       next()
     }else{

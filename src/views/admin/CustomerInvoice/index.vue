@@ -20,7 +20,7 @@ export default {
   },
   data() {
     return {
-      title: 'invoice',
+      title: 'Sales flow',
       source: '/api/invoice',
       create: '/invoice/create',
       show: '/invoice/',
@@ -48,6 +48,10 @@ export default {
           sortable: false
         },
         {
+          text: 'Dated',
+          value: 'dated'
+        },
+        {
           text: 'tax',
           value: 'tax'
         },
@@ -64,12 +68,7 @@ export default {
           value: 'actions',
           sortable: false
         },
-      ],
-      filters: [
-        'ID', 'name', 'title', 'description', 'total'
-      ],
-      operators: ['like']
-      // operators:['equal_to','not_equal_to','less_than','greater_than','greater_than_or_equall_to','less_than_or_equal_to','in','not_in','like','between']
+      ]
     }
   },
 }

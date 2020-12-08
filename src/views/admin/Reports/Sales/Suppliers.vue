@@ -10,7 +10,7 @@
                 cols="12"
                 sm="8"
                 md="4">
-                 <Dcard :title="allsuppliers.Name" :total="allsuppliers.Total" 
+                 <Dcard :title="allsuppliers.Name" :total="String(allsuppliers.Total)" 
                  :desc="allsuppliers.Description" :icon="`mdi-account-multiple`" />
                 </v-col>
                 <v-col v-if="lastweek"
@@ -18,14 +18,14 @@
                 cols="12"
                 sm="8"
                 md="4">
-                 <Dcard :title="lastweek.Name" :total="lastweek.Total" :desc="lastweek.Description" :icon="`mdi-account-multiple`"/>
+                 <Dcard :title="lastweek.Name" :total="String(lastweek.Total)" :desc="lastweek.Description" :icon="`mdi-account-multiple`"/>
                 </v-col>
                 <v-col  v-if="todays"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="4">
-                 <Dcard :title="todays.Name" :total="todays.Total" :desc="todays.Description" :icon="`mdi-account-multiple`" />
+                 <Dcard :title="todays.Name" :total="String(todays.Total)" :desc="todays.Description" :icon="`mdi-account-multiple`" />
                 </v-col> 
       </v-row>
 

@@ -9,45 +9,45 @@
                 cols="12"
                 sm="8"
                 md="3">
-                 <Dcard :title="sales.Name" :total="sales.Total" :desc="sales.Description" :icon="sales.Icon" />
+                 <Dcard :title="sales.Name" :total="formatcurrency(sales.Total)" :desc="sales.Description" :icon="sales.Icon" :rout="`/sales/report`"/>
                 </v-col>
                  <v-col  v-if="purchases"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="3">
-                 <Dcard :title="purchases.Name" :total="purchases.Total" :desc="purchases.Description" :icon="purchases.Icon" />
+                 <Dcard :title="purchases.Name" :total="formatcurrency(purchases.Total)" :desc="purchases.Description" :icon="purchases.Icon" :rout="`/purchases/report`"/>
                 </v-col>
                  <v-col  v-if="receipts"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="3">
-                 <Dcard :title="receipts.Name" :total="receipts.Total" :desc="receipts.Description" :icon="receipts.Icon" />
+                 <Dcard :title="receipts.Name" :total="formatcurrency(receipts.Total)" :desc="receipts.Description" :icon="receipts.Icon"  :rout="`/receipts/report`"/>
                 </v-col> <v-col  v-if="payments"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="3">
-                 <Dcard :title="payments.Name" :total="payments.Total" :desc="payments.Description" :icon="payments.Icon"  />
+                 <Dcard :title="payments.Name" :total="formatcurrency(payments.Total)" :desc="payments.Description" :icon="payments.Icon"  :rout="`/payments/report`" />
                 </v-col> <v-col  v-if="expences"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="4">
-                 <Dcard :title="expences.Name" :total="expences.Total" :desc="expences.Description" :icon="expences.Icon" />
+                 <Dcard :title="expences.Name" :total="formatcurrency(expences.Total)" :desc="expences.Description" :icon="expences.Icon"  :rout="`/expences/report`"/>
                 </v-col> <v-col  v-if="customers"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="4">
-                 <Dcard :title="customers.Name" :total="customers.Total" :desc="customers.Description" :icon="customers.Icon" />
+                 <Dcard :title="customers.Name" :total="String(customers.Total)" :desc="customers.Description" :icon="customers.Icon"  :rout="`/customers/report`"/>
                 </v-col> <v-col  v-if="suppliers"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="4">
-                 <Dcard :title="suppliers.Name" :total="suppliers.Total" :desc="suppliers.Description" :icon="suppliers.Icon"/>
+                 <Dcard :title="suppliers.Name" :total="String(suppliers.Total)" :desc="suppliers.Description" :icon="suppliers.Icon" :rout="`/suppliers/report`"/>
                 </v-col>
       </v-row>
   </v-container>
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import formatMoney from '@/helpers/currencyformat'
 import axios from '@/axios'
 import Dcard from '@/components/cards/dashboardcard'
 import back from '@/layouts/back'
@@ -82,6 +83,10 @@ export default {
     
   },
   methods:{
+
+      formatcurrency(d) {
+          return formatMoney(d)
+        },
     // newInvoice(invoice) {
     //   // this.invoices = [ ...this.invoices, invoice]
     // },

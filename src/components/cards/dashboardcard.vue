@@ -39,7 +39,7 @@
 export default {
     props:{
         title: String,
-        total: Number,
+        total: String,
         desc: String,
         icon: String,
         rout: String

@@ -13,7 +13,7 @@
                  <v-col cols="12" md="12">
                     <v-card-text class="mt-12">
                       <h1 class="text-center display-2 teal--text text--accent-3">
-                        New  category
+                        Edit Discount
                       </h1>
                       
                       <template >  
@@ -153,7 +153,7 @@ export default {
         errs:{},
         option:[],
         title:'Create',
-        init:'api/discounts/view',
+        init:'api/discounts',
         redirect: '/discounts',
         store: 'api/discounts',
         method: 'post',
@@ -178,7 +178,7 @@ export default {
                     name: this.form.name,
                     title: this.form.title,
                     description: this.form.description,
-                    majorcategory: this.form.majorcategory,
+                    usercode: this.$store.getters.usercode,
                 })
                 if(data){
                 this.$router.push(this.redirect)
@@ -197,29 +197,14 @@ export default {
 
             if(data){
             this.form = data
-            this.GetData()
             }
           }catch(err){
           this.snackbar = true
           //   console.log(err)
           this.errs = err.response.data
           } 
-      },
-      async GetData(){
-        try{
-            // console.log(token)
-           const {data} = await axios.get(`${this.init}`)
-            // this.option = data
-            console.log(data)
-            const op = data.map(d => {
-              return d.name
-            })
-            this.option = op
-        }catch(err){
-           console.log(err)
-        }
-    } 
-    },    
+      }
+  }   
   }
 </script>
 

@@ -27,7 +27,25 @@
     :items="allreceipts"
     :items-per-page="5"
     class="elevation-1"
-  >  <template v-slot:item.actions="{ item }">
+  >   
+  <template v-slot:[`item.clearancedate`]="{ item }">
+      
+        {{ formatdate(item.clearancedate) }}
+    </template>
+  
+  <template v-slot:[`item.amount`]="{ item }">
+      
+        {{ formatcurrency(item.amount) }}
+    </template>
+   <template v-slot:[`item.status`]="{ item }">
+      <v-chip
+        :color="getColor(item.status)"
+        dark
+      >
+        {{ item.status }}
+      </v-chip>
+    </template>
+    <template v-slot:[`item.actions`]="{ item }">
               <v-icon
                 small
                 class="mr-2"
@@ -44,7 +62,28 @@
     :items="pending"
     :items-per-page="5"
     class="elevation-1"
-  >  <template v-slot:item.actions="{ item }">
+    
+  > 
+  
+  <template v-slot:[`item.clearancedate`]="{ item }">
+      
+        {{ formatdate(item.clearancedate) }}
+    </template>
+
+  <template v-slot:[`item.amount`]="{ item }">
+      
+        {{ formatcurrency(item.amount) }}
+    </template>
+    <template v-slot:[`item.status`]="{ item }">
+      <v-chip
+        :color="getColor(item.status)"
+        dark
+      >
+        {{ item.status }}
+      </v-chip>
+    </template>
+  
+  <template v-slot:[`item.actions`]="{ item }">
              <v-icon
                 small
                 class="mr-2"
@@ -90,6 +129,8 @@
 </back>
 </template>
 <script>
+import formatMoney from '@/helpers/currencyformat'
+import moment from 'moment'
  import axios from '@/axios'
 import back from '@/layouts/back'
 export default {
@@ -142,7 +183,17 @@ export default {
           this.GetData()
        },
        methods:{
-
+      formatcurrency(d) {
+          return formatMoney(d)
+        },
+      formatdate(d) {
+          return moment(d).format('L');
+        },
+        getColor (status) {
+                if (status === "canceled") return 'red'
+                else if (status === "pending") return 'orange'
+                else return 'green'
+              },
         View(id){
 
           this.$router.push(`${this.show}show/${id }`)
@@ -157,7 +208,7 @@ export default {
           this.form = Object.assign({}, item);
           this.dialog = true;
         },
-        close() {
+        close() { 
           this.dialog = false;
           this.$nextTick(() => {
             this.editedItem = Object.assign({}, this.defaultItem);
@@ -191,6 +242,7 @@ export default {
               console.log(err)
             }
         },  
+
        }
 }
 </script>

@@ -166,7 +166,7 @@
 
               </template>
               <v-data-table v-if="itemos" :headers="headers" :items="itemos" :items-per-page="5" class="elevation-1">
-                <template v-slot:item.action="{ item }">
+                <template v-slot:[`item.action`]="{ item }">
                   <v-icon small @click="DeleteCart(item.ID)">
                     mdi-delete
                   </v-icon>
@@ -181,7 +181,7 @@
               <div  align="right" justify="right"> 
             <v-btn color="primary" @click="addexpence">Add an Expence</v-btn></div>
               <v-data-table v-if="itemos" :headers="expenceheaders" :items="expencestrans" :items-per-page="5" class="elevation-1">
-                <template v-slot:item.action="{ item }">
+                <template v-slot:[`item.action`]="{ item }">
                   <v-icon small @click="DeleteExpence(item.ID)">
                     mdi-delete
                   </v-icon>

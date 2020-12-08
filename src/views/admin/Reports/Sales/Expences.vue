@@ -10,7 +10,7 @@
                 cols="12"
                 sm="8"
                 md="4">
-                 <Dcard :title="totals.Name" :total="totals.Total" 
+                 <Dcard :title="totals.Name" :total="formatcurrency(totals.Total)" 
                  :desc="totals.Description" :icon="`mdi-cash-multiple`" />
                 </v-col>
                 <v-col v-if="directexpences"
@@ -18,14 +18,14 @@
                 cols="12"
                 sm="8"
                 md="4">
-                 <Dcard :title="directexpences.Name" :total="directexpences.Total" :desc="directexpences.Description" :icon="`mdi-cards-outline`"/>
+                 <Dcard :title="directexpences.Name" :total="formatcurrency(directexpences.Total)" :desc="directexpences.Description" :icon="`mdi-cards-outline`"/>
                 </v-col>
                 <v-col  v-if="indirectexpences"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="4">
-                 <Dcard :title="indirectexpences.Name" :total="indirectexpences.Total" :desc="indirectexpences.Description" :icon="`mdi-cash-usd-outline`" />
+                 <Dcard :title="indirectexpences.Name" :total="formatcurrency(indirectexpences.Total)" :desc="indirectexpences.Description" :icon="`mdi-cash-usd-outline`" />
                 </v-col> 
       </v-row>
 
@@ -51,7 +51,10 @@
                     'items-per-page-options': [5,10, 20, 30, 40, 50]
                   }"
                 :items-per-page="10"
-                ></v-data-table>
+                ><template v-slot:[`item.amount`]="{ item }">
+              
+                {{ formatcurrency(item.amount) }}
+            </template></v-data-table>
               </v-col>
             </v-row>
   </v-container>
@@ -59,6 +62,7 @@
 </template>
 
 <script>
+import formatMoney from '@/helpers/currencyformat'
 import axios from '@/axios'
 import Dcard from '@/components/cards/dashboardcard'
 import back from '@/layouts/back'
@@ -90,6 +94,9 @@ export default {
     
   },
   methods:{
+      formatcurrency(d) {
+          return formatMoney(d)
+        },
     // View(code){
     //   this.$router.push(`/invoice/show/${code }`)
     // },

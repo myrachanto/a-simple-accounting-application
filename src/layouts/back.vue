@@ -100,7 +100,7 @@ import foot from './foot'
           action: 'mdi mdi-account-multiple',
           items: [
                 {title:'Customers', icon:'mdi mdi-account-multiple', route:'/customer'},
-                {title:'Invoice', icon:'mdi mdi mdi-file', route:'/invoice'},
+                {title:'Sales', icon:'mdi mdi mdi-file', route:'/invoice'},
                 {title:'Credit Note', icon:'mdi mdi mdi-redo', route:'/creditnotes'},
           ],
           title: 'Customer',
@@ -121,7 +121,7 @@ import foot from './foot'
           action: 'mdi mdi-account-multiple',
           items: [              
                 {title:'Suppliers', icon:'mdi  mdi-account-multiple',route:'/supplier'},
-                {title:'Invoice', icon:'mdi  mdi-file',route:'/sinvoice'},
+                {title:'Purchases', icon:'mdi  mdi-file',route:'/sinvoice'},
                 {title:'Goods Return Note', icon:'mdi  mdi-redo', route: '/grnnotes'},
           ],
           title: 'Suppliers',
@@ -141,7 +141,8 @@ import foot from './foot'
         {
           action: 'mdi-file-chart-outline',
           items: [
-                {title:'Sales', icon:'mdi  mdi-account-multiple',route:'/sales/dashboard'},
+                {title:'Sales', icon:'mdi  mdi-account-multiple',route:'/sales/report'},
+                {title:'Purchases', icon:'mdi  mdi-account-multiple',route:'/purchases/report'},
                 {title:'Expences', icon:'mdi mdi-clipboard-outline',route:'/expences/report'},
                 {title:'Customers', icon:'mdi mdi-account-multiple',route:'/customers/report'},
                 {title:'Suppliers', icon:'mdi mdi-account-multiple',route:'/suppliers/report'},

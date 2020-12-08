@@ -24,51 +24,91 @@
     <v-expansion-panel
     >
       <v-expansion-panel-header>
-        filter
+        Search
       </v-expansion-panel-header>
       <v-expansion-panel-content>
       <v-row>
         <v-col
           cols="12"
+          md="3"
+        >
+          <v-text-field
+            v-model="search"
+            label="Search query"
+            required
+          ></v-text-field>
+        </v-col>
+        <v-col
+          cols="12"
           md="2">
            <v-select
           :items="filters"
-          label="Search column"
-          v-model="params.search_column"
+          label="Search Date"
+          v-model="dated"
           outlined
+          @change="selected(dated)"
         ></v-select>
         </v-col>
         <v-col
-          cols="12"
-          md="4">
-           <v-select
-          :items="operators"
-          label="Search Operator"
-          v-model="params.search_operator"
-          outlined
-        ></v-select>
-        </v-col>
-        <v-col
-          cols="12"
-          md="2"
-        >
+      cols="12"
+      sm="6"
+      md="2"
+      v-if="custom"
+    >
+      <v-menu
+        v-model="menu"
+        :close-on-content-click="false"
+        :nudge-right="40"
+        transition="scale-transition"
+        offset-y
+        min-width="290px"
+      >
+        <template v-slot:activator="{ on, attrs }">
           <v-text-field
-            v-model="params.search_query_1"
-            label="Search query"
-            required
-            @keyup.enter="GetData"
+            v-model="searchq2"
+            label="Between Date"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
           ></v-text-field>
-        </v-col>
-
-        <v-col
-          cols="12"
-          md="2" v-if="params.search_operator === 'between'">
+        </template>
+        <v-date-picker
+          v-model="searchq2"
+          @input="menu = false"
+        ></v-date-picker>
+      </v-menu>
+    </v-col>
+    <v-col
+      cols="12"
+      sm="6"
+      md="2"
+      v-if="custom"
+    >
+      <v-menu
+        v-model="menu2"
+        :close-on-content-click="false"
+        :nudge-right="40"
+        transition="scale-transition"
+        offset-y
+        min-width="290px"
+      >
+        <template v-slot:activator="{ on, attrs }">
           <v-text-field
-            v-model="params.search_query_2"
-            label="Search query 2"
-            @keyup.enter="GetData"
+            v-model="searchq3"
+            label="And Date"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
           ></v-text-field>
-        </v-col>
+        </template>
+        <v-date-picker
+          v-model="searchq3"
+          @input="menu2 = false"
+        ></v-date-picker>
+      </v-menu>
+    </v-col>
 
         <v-col
           cols="12"
@@ -105,7 +145,24 @@
             }"
           :items-per-page="10"
           >
-          <template v-slot:item.actions="{ item }">
+
+  <template v-slot:[`item.dated`]="{ item }">
+      
+        {{ formatdate(item.dated) }}
+    </template>
+          <template v-slot:[`item.tax`]="{ item }">
+              
+                {{ formatcurrency(item.tax) }}
+            </template>
+          <template v-slot:[`item.discount`]="{ item }">
+              
+                {{ formatcurrency(item.total) }}
+            </template>
+          <template v-slot:[`item.total`]="{ item }">
+              
+                {{ formatcurrency(item.total) }}
+            </template>
+          <template v-slot:[`item.actions`]="{ item }">
               <v-icon
                 small
                 class="mr-2"
@@ -113,13 +170,8 @@
               >
                 mdi-eye
               </v-icon>
-              <v-icon
-                small
-                class="mr-2"
-                @click="Edit(item.code)"
-              >
-                mdi-pencil
-              </v-icon>
+              <v-btn color="red"  @click="Edit(item.code)">Cancel</v-btn>
+          
             </template>
             
           </v-data-table>
@@ -127,47 +179,65 @@
   </v-row></v-container>
 </template>
 <script>
+import moment from 'moment'
+import formatMoney from '@/helpers/currencyformat'
  import axios from '@/axios'
   export default {
     
-    props: ['source', 'headers', 'filters', 'create', 'title','show','operators'],
+    props: ['source', 'headers', 'create', 'title','show'],
     data(){
         return{
             items:[],
             showFilter: false,
-            params:{ 
-                column: 'ID',
-                direction: 'desc',
-                itemsPerPage:10,
-                page:1,
-                search_column: 'id',
-                search_operator: 'like',
-                search_query_1:'all',
-                search_query_2: ''
-            },
-               
+            search:'',
+            dated:'',
+            searchq2 : '',
+            searchq3 : '',
+            custom: false,
+            // date: new Date().toISOString().substr(0, 10),
+            menu: false,
+            modal: false,
+            menu2: false,
+            filters:[
+              'In the last 24hrs',
+              'In the last 7days',
+              'In the last 15day',
+              'In the last 30days',
+              'custom'
+            ]
         }
     },
     created(){
           this.GetData()
        },
     methods:{
+      formatcurrency(d) {
+          return formatMoney(d)
+        },
+        selected(val){
+          if (val === 'custom'){
+            this.custom = true
+          }else {
+            this.custom = false
+          }
+        },
+
+      formatdate(d) {
+          return moment(d).format('L');
+        },
         resetFilter(){
-            this.params.column = 'ID',
-            this.params.direction = 'desc',
-            this.params.itemsPerPage=10,
-            this.params.page=1,
-            this.params.search_column= 'id',
-            this.params.search_operator= 'greater_than',
-            this.params.search_query_1=0,
-            this.params.search_query_2=''
+            this.search = ''
+            this.dated = ''
+            this.searchq2 = ''
+            this.searchq3 = ''
+            this.custom = false
             this.GetData()
         },
        async GetData(){
         try{
-          let p = this.params
+          let p = this
             // console.log(token)
-           const {data} = await axios.get(`${this.source}?column=${p.column}&direction=${p.direction}&per_page=${p.itemsPerPage}&page=${p.page}&search_column=${p.search_column}&search_operator=${p.search_operator}&search_query_1=${p.search_query_1}&search_query_2=${p.search_query_2}`)
+           const {data} = await axios.get(`${this.source}?search=${p.search}&dated=${p.dated}&searchq2=${p.searchq2}&searchq3=${p.searchq3}`)
             this.items = data  
 
             // console.log(data)

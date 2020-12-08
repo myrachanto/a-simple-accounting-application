@@ -80,7 +80,7 @@ import back from '@/layouts/back'
 
 export default {
   name: "Customershow",
-  components: {
+  components: { 
       back,
       customercard,
       invoicecard

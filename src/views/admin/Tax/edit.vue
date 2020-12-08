@@ -153,10 +153,9 @@ export default {
         errs:{},
         option:[],
         title:'Create',
-        init:'api/tax/view',
+        init:'api/tax',
         redirect: '/tax',
         store: 'api/tax',
-        method: 'post',
         snackbar:false,
         timeout:3000
     }
@@ -178,7 +177,7 @@ export default {
                     name: this.form.name,
                     title: this.form.title,
                     description: this.form.description,
-                    majorcategory: this.form.majorcategory,
+                    usercode: this.$store.getters.usercode,
                 })
                 if(data){
                 this.$router.push(this.redirect)
@@ -197,28 +196,13 @@ export default {
 
             if(data){
             this.form = data
-            this.GetData()
             }
           }catch(err){
           this.snackbar = true
           //   console.log(err)
           this.errs = err.response.data
           } 
-      },
-      async GetData(){
-        try{
-            // console.log(token)
-           const {data} = await axios.get(`${this.init}`)
-            // this.option = data
-            console.log(data)
-            const op = data.map(d => {
-              return d.name
-            })
-            this.option = op
-        }catch(err){
-           console.log(err)
-        }
-    } 
+      }
     },    
   }
 </script>

@@ -4,10 +4,8 @@
       <DataViewer
         :source="source"
         :headers="headers"
-        :filters="filters"
         :title="title"
         :show="show"
-        :operators="operators"
       />
     </v-container>
   </back>
@@ -60,10 +58,7 @@ export default {
           value: 'total'
         }
       ],
-      filters: ["ID", "name", "title", "description"],
-      operators: ["like"],
-      // operators:['equal_to','not_equal_to','less_than','greater_than','greater_than_or_equall_to','less_than_or_equal_to','in','not_in','like','between']
-    };
+    }
   },
 };
 </script>

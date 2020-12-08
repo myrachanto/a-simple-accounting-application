@@ -25,7 +25,7 @@
                                           >
                                             <v-card-text>
                                               <v-card-title class="text-center display-1">Name: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.name}}</span></v-card-title>
-                                              <v-card-title class="text-center display-1">Title: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.title}}</span></v-card-title>
+                                              <v-card-title class="text-center display-1">Percentange: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.title}}%</span></v-card-title>
                                               <v-card-title class="text-center display-1">Description: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.description}}</span></v-card-title>
                                               <v-card-title class="text-center display-1">Majorcategory: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.majorcategory}}</span></v-card-title>
                                            </v-card-text>
@@ -72,7 +72,7 @@ export default {
         method: 'post',
         snackbar:false,
         timeout:3000
-    }
+    } 
   },
   created(){
       this.fetchData()
@@ -87,6 +87,7 @@ export default {
   
   async fetchData(){
       try{
+        // console.log(this.store,this.$route.params.id)
           const {data} = await axios.get(`${this.store}/${this.$route.params.id}`)
           this.form = data
         }catch(err){

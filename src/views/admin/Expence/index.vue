@@ -2,7 +2,7 @@
 <back>
   <v-container>
     
-<DataViewer :source="source" :headers="headers" :filters="filters" :create="create" :title="title" :show="show" :operators="operators"/>
+<DataViewer :source="source" :headers="headers" :create="create" :title="title" :show="show"/>
   </v-container>
 
 </back>
@@ -29,11 +29,7 @@ export default {
                 { text: 'Title', value: 'title' },
                 { text: 'Description', value: 'description' },
                 { text: 'Actions', value: 'actions', sortable: false },
-              ],
-              filters:[
-                  'ID', 'name', 'title', 'description'
-              ],
-              operators:['like']
+              ]
           }
       },
 }

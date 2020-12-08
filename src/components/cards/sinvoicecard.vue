@@ -4,7 +4,12 @@
     :items="items"
     :items-per-page="5"
     class="elevation-1"
-  > <template v-slot:item.actions="{ item }">
+  > 
+          <template v-slot:[`item.total`]="{ item }">
+              
+                {{ formatcurrency(item.total) }}
+            </template>
+            <template v-slot:[`item.actions`]="{ item }">
               <v-icon
                 small
                 class="mr-2"
@@ -16,6 +21,7 @@
 </template>
 
 <script> 
+import formatMoney from '@/helpers/currencyformat'
 export default {
   props:{
     headers: Array,
@@ -23,6 +29,9 @@ export default {
   },
 
 methods:{
+      formatcurrency(d) {
+          return formatMoney(d)
+        },
   ShowInvoice(id){
     this.$router.push(`/sinvoice/show/${id }`)
     },

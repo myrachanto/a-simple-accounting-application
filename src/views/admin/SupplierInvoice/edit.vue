@@ -2,25 +2,7 @@
   <back>
     <v-form>
       <v-container class="fill-height">
-        <v-row align="center" justify="center" v-if="supplier">
-          <v-col>
-            <h1>sinvoice</h1>
-          </v-col>
-          <v-col cols="12" sm="8" md="6">
-            <v-card class="mx-auto"> </v-card>
-          </v-col>
-          <v-col cols="12" sm="8" md="3" align="center" justify="center">
-            <v-img
-              max-height="150"
-              max-width="150"
-              contain
-              :src="`http://localhost:5000/imgs/dashboard/chantosweb.jpeg`"
-            ></v-img>
-            <h1>Chantosweb developers</h1>
-            <p>Myrachanto@gmail.com</p>
-            <p>www.chantosweb.com</p>
-          </v-col>
-        </v-row>
+            <h1>Supplier sinvoice</h1>
         <v-row align="center" justify="center" v-if="supplier">
           <v-col cols="12" sm="8" md="4">
             <v-card class="mx-auto">
@@ -64,7 +46,7 @@
                 }"
                 :items-per-page="10"
               >
-                <template v-slot:item.actions="{ item }">
+                <template v-slot:[`item.actions`]="{ item }">
                   <v-icon small class="mr-2" @click="editItem(item)">
                     mdi-pencil
                   </v-icon>
@@ -104,7 +86,7 @@
                 }"
                 :items-per-page="10"
               >
-                <template v-slot:item.actions="{ item }">
+                <template v-slot:[`item.actions`]="{ item }">
                   <v-icon small class="mr-2" @click="editItemExpence(item)">
                     mdi-pencil
                   </v-icon>

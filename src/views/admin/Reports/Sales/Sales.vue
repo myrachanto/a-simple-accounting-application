@@ -10,7 +10,7 @@
                 cols="12"
                 sm="8"
                 md="3">
-                 <Dcard :title="sales.Name" :total="sales.Total" 
+                 <Dcard :title="sales.Name" :total="formatcurrency(sales.Total)" 
                  :desc="sales.Description" :icon="`mdi-cash-multiple`" />
                 </v-col>
                 <v-col v-if="paid"
@@ -18,21 +18,21 @@
                 cols="12"
                 sm="8"
                 md="3">
-                 <Dcard :title="paid.Name" :total="paid.Total" :desc="paid.Description" :icon="`mdi-cards-outline`"/>
+                 <Dcard :title="paid.Name" :total="formatcurrency(paid.Total)" :desc="paid.Description" :icon="`mdi-cards-outline`"/>
                 </v-col>
                 <v-col  v-if="grossprofit"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="3">
-                 <Dcard :title="grossprofit.Name" :total="grossprofit.Total" :desc="grossprofit.Description" :icon="`mdi-cash-usd-outline`" />
+                 <Dcard :title="grossprofit.Name" :total="formatcurrency(grossprofit.Total)" :desc="grossprofit.Description" :icon="`mdi-cash-usd-outline`" />
                 </v-col> 
                 <v-col  v-if="debts"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="3">
-                 <Dcard :title="debts.Name" :total="debts.Total" :desc="debts.Description" :icon="`mdi-account-multiple`" />
+                 <Dcard :title="debts.Name" :total="formatcurrency(debts.Total)" :desc="debts.Description" :icon="`mdi-account-multiple`" />
                 </v-col> 
       </v-row>
 
@@ -45,7 +45,7 @@
                 sm="8"
                 md="6">
                 <div class="overline mb-4 green--text ">
-                        <h2 >Transactions flow</h2>
+                        <h2 >Products flow (sale and credited)</h2>
                 </div>
                  <v-data-table
                 :headers="transactionheader"
@@ -57,7 +57,23 @@
                   'items-per-page-options': [5,10, 20, 30, 40, 50]
                 }"
               :items-per-page="10"
-              > <template v-slot:item.actions="{ item }">
+              >  <template v-slot:[`item.price`]="{ item }">
+              
+                {{ formatcurrency(item.price) }}
+            </template>
+            <template v-slot:[`item.tax`]="{ item }">
+              
+                {{ formatcurrency(item.tax) }}
+            </template>
+          <template v-slot:[`item.discount`]="{ item }">
+              
+                {{ formatcurrency(item.total) }}
+            </template>
+          <template v-slot:[`item.total`]="{ item }">
+              
+                {{ formatcurrency(item.total) }}
+            </template>
+              <template v-slot:[`item.actions`]="{ item }">
               <v-icon
                 small
                 class="mr-2"
@@ -73,7 +89,7 @@
                 sm="8"
                 md="6">
                 <div class="overline mb-4 green--text ">
-                        <h2 >Debtors flow</h2>
+                        <h2 >Sales flow (sales records)</h2>
                 </div>
                  <v-data-table
                   :headers="debtorheader"
@@ -85,7 +101,11 @@
                     'items-per-page-options': [5,10, 20, 30, 40, 50]
                   }"
                 :items-per-page="10"
-                ><template v-slot:item.actions="{ item }">
+                ><template v-slot:[`item.amount`]="{ item }">
+              
+                {{ formatcurrency(item.amount) }}
+            </template>
+                <template v-slot:[`item.actions`]="{ item }">
               <v-icon
                 small
                 class="mr-2"
@@ -101,6 +121,7 @@
 </template>
 
 <script>
+import formatMoney from '@/helpers/currencyformat'
 import axios from '@/axios'
 import Dcard from '@/components/cards/dashboardcard'
 import back from '@/layouts/back'
@@ -140,11 +161,15 @@ export default {
     Dcard
   },
   created() {
+    
       this.fetchData()
       // this.newInvoice()
     
   },
   methods:{
+      formatcurrency(d) {
+          return formatMoney(d)
+        },
     View(code){
       this.$router.push(`/invoice/show/${code }`)
     },
