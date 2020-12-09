@@ -29,7 +29,23 @@
                  <div><h1>Products</h1></div>
               <v-data-table :headers="transactionheader" :items="stransactions" item-key="ID" class="elevation-1 display-2" style="font-size:10rem" :footer-props="{
                   'items-per-page-options': [5,10, 20, 30, 40, 50]
-                }" :items-per-page="10"> </v-data-table>
+                }" :items-per-page="10">
+          <template v-slot:[`item.price`]="{ item }">
+              
+                {{ formatcurrency(item.price) }}
+            </template>
+          <template v-slot:[`item.tax`]="{ item }">
+              
+                {{ formatcurrency(item.tax) }}
+            </template>
+          <template v-slot:[`item.discount`]="{ item }">
+              
+                {{ formatcurrency(item.discount) }}
+            </template>
+          <template v-slot:[`item.total`]="{ item }">
+              
+                {{ formatcurrency(item.total) }}
+            </template> </v-data-table>
             </v-card>
           </v-col>
         </v-row>
@@ -39,7 +55,11 @@
                  <div><h1>Expences</h1></div>
               <v-data-table :headers="expenceheaders" :items="expences" item-key="ID" class="elevation-1 display-2" style="font-size:10rem" :footer-props="{
                   'items-per-page-options': [5,10, 20, 30, 40, 50]
-                }" :items-per-page="10"> </v-data-table>
+                }" :items-per-page="10">
+          <template v-slot:[`item.amount`]="{ item }">
+              
+                {{ formatcurrency(item.amount) }}
+            </template> </v-data-table>
             </v-card>
         </v-col></v-row>
         <v-row  v-if="credits.length > 0">
@@ -58,6 +78,22 @@
                 }"
                 :items-per-page="10"
               >
+          <template v-slot:[`item.price`]="{ item }">
+              
+                {{ formatcurrency(item.price) }}
+            </template>
+          <template v-slot:[`item.tax`]="{ item }">
+              
+                {{ formatcurrency(item.tax) }}
+            </template>
+          <template v-slot:[`item.discount`]="{ item }">
+              
+                {{ formatcurrency(item.discount) }}
+            </template>
+          <template v-slot:[`item.total`]="{ item }">
+              
+                {{ formatcurrency(item.total) }}
+            </template>
               </v-data-table>
             </v-card>
           </v-col>
@@ -72,10 +108,10 @@
 
           <v-col cols="12" md="4">
             <v-card class="mx-auto">
-              <v-card-title>Discount: {{sinvoice.discount}} </v-card-title>
-              <v-card-title>Tax: {{sinvoice.tax}}</v-card-title>
-              <v-card-title>Expences: {{sinvoice.expence}} </v-card-title>
-              <v-card-title>Amount: {{sinvoice.total}}</v-card-title>
+              <v-card-title>Discount: {{formatcurrency(sinvoice.discount)}} </v-card-title>
+              <v-card-title>Tax: {{formatcurrency(sinvoice.tax)}}</v-card-title>
+              <v-card-title>Expences: {{formatcurrency(sinvoice.expence)}} </v-card-title>
+              <v-card-title>Amount: {{formatcurrency(sinvoice.total)}}</v-card-title>
             </v-card>
           </v-col>
         </v-row>
@@ -86,6 +122,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+import formatMoney from '@/helpers/currencyformat'
 import axios from '@/axios'
 
 import back from '@/layouts/back'
@@ -170,6 +208,12 @@ export default {
     this.fetchData()
   },
   methods: {
+    formatcurrency(d) {
+          return formatMoney(d)
+        },
+      formatdate(d) {
+          return moment(d).format('L');
+        },
     Edit(id) {
       this.$router.push(`${this.redirect}/${id}/edit`)
     },

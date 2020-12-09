@@ -46,6 +46,22 @@
                 }"
                 :items-per-page="10"
               >
+          <template v-slot:[`item.price`]="{ item }">
+              
+                {{ formatcurrency(item.price) }}
+            </template>
+          <template v-slot:[`item.tax`]="{ item }">
+              
+                {{ formatcurrency(item.tax) }}
+            </template>
+          <template v-slot:[`item.discount`]="{ item }">
+              
+                {{ formatcurrency(item.discount) }}
+            </template>
+          <template v-slot:[`item.total`]="{ item }">
+               
+                {{ formatcurrency(item.total) }}
+            </template>
                 <template v-slot:[`item.actions`]="{ item }">
                   <v-icon small class="mr-2" @click="editItem(item)">
                     mdi-pencil
@@ -66,6 +82,22 @@
                 }"
                 :items-per-page="10"
               >
+          <template v-slot:[`item.price`]="{ item }">
+              
+                {{ formatcurrency(item.price) }}
+            </template>
+          <template v-slot:[`item.tax`]="{ item }">
+              
+                {{ formatcurrency(item.tax) }}
+            </template>
+          <template v-slot:[`item.discount`]="{ item }">
+              
+                {{ formatcurrency(item.discount) }}
+            </template>
+          <template v-slot:[`item.total`]="{ item }">
+               
+                {{ formatcurrency(item.total) }}
+            </template>
               </v-data-table>
               </div>
             </v-card>
@@ -85,7 +117,10 @@
                   'items-per-page-options': [5, 10, 20, 30, 40, 50],
                 }"
                 :items-per-page="10"
-              >
+              > <template v-slot:[`item.amount`]="{ item }">
+              
+                {{ formatcurrency(item.amount) }}
+            </template>
                 <template v-slot:[`item.actions`]="{ item }">
                   <v-icon small class="mr-2" @click="editItemExpence(item)">
                     mdi-pencil
@@ -108,9 +143,9 @@
 
           <v-col cols="12" md="4">
             <v-card class="mx-auto">
-              <v-card-title>Discount: {{ invoice.discount }} </v-card-title>
-              <v-card-title>Tax: {{ invoice.tax }}</v-card-title>
-              <v-card-title>Amount: {{ invoice.total }}</v-card-title>
+              <v-card-title>Discount: {{ formatcurrency(invoice.discount)}} </v-card-title>
+              <v-card-title>Tax: {{ formatcurrency(invoice.tax) }}</v-card-title>
+              <v-card-title>Amount: {{ formatcurrency(invoice.total) }}</v-card-title>
             </v-card>
           </v-col>
         </v-row>
@@ -178,6 +213,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+import formatMoney from '@/helpers/currencyformat'
 import axios from "@/axios";
 
 import back from "@/layouts/back";
@@ -282,6 +319,12 @@ export default {
     },
   },
   methods: {
+    formatcurrency(d) {
+          return formatMoney(d)
+        },
+      formatdate(d) {
+          return moment(d).format('L');
+        },
     editItem(item) {
       //  console.log(item)
       this.editedIndex = this.transactions.indexOf(item);

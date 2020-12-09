@@ -9,14 +9,14 @@
                 cols="12"
                 sm="8"
                 md="3">
-                 <Dcard :title="sales.Name" :total="formatcurrency(sales.Total)" :desc="sales.Description" :icon="sales.Icon" :rout="`/sales/report`"/>
+                 <Dcard :title="sales.Name" :total="formatcurrency(sales.Total)" :desc="sales.Description" :icon="`mdi-cash-plus`" :rout="`/sales/report`"/>
                 </v-col>
                  <v-col  v-if="purchases"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="3">
-                 <Dcard :title="purchases.Name" :total="formatcurrency(purchases.Total)" :desc="purchases.Description" :icon="purchases.Icon" :rout="`/purchases/report`"/>
+                 <Dcard :title="purchases.Name" :total="formatcurrency(purchases.Total)" :desc="purchases.Description" :icon="`mdi-cash-minus`" :rout="`/purchases/report`"/>
                 </v-col>
                  <v-col  v-if="receipts"
                 class="auto"
@@ -47,7 +47,7 @@
                 cols="12"
                 sm="8"
                 md="4">
-                 <Dcard :title="suppliers.Name" :total="String(suppliers.Total)" :desc="suppliers.Description" :icon="suppliers.Icon" :rout="`/suppliers/report`"/>
+                 <Dcard :title="suppliers.Name" :total="String(suppliers.Total)" :desc="suppliers.Description" :icon="`mdi-account-multiple-check-outline`" :rout="`/suppliers/report`"/>
                 </v-col>
       </v-row>
   </v-container>

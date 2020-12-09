@@ -2,14 +2,14 @@
 <back>
   <v-container>
     
-<DataViewer :source="source" :headers="headers" :filters="filters" :create="create" :title="title" :show="show" :operators="operators"/>
+<DataViewer :source="source" :headers="headers" :create="create" :title="title" :show="show" />
   </v-container>
 
 </back>
 </template>
 <script>
 import back from '@/layouts/back'
-import DataViewer from '@/components/DataViewer'
+import DataViewer from '@/components/DataViewerp'
 export default {
       name: 'supplierIndex',
     components:{
@@ -31,12 +31,7 @@ export default {
                 { text: 'Phone', value: 'phone' },
                 { text: 'Email', value: 'email' },
                 { text: 'Actions', value: 'actions', sortable: false },
-              ],
-              filters:[
-                  'ID', 'name', 'company', 'phone','address','email'
-              ],
-              operators:['like']
-              // operators:['equal_to','not_equal_to','less_than','greater_than','greater_than_or_equall_to','less_than_or_equal_to','in','not_in','like','between']
+              ]
           }
       },
 }

@@ -2,7 +2,7 @@
 <back>
   <v-container>
 
-    <DataViewer :source="source" :headers="headers" :filters="filters" :create="create" :title="title" :show="show" :operators="operators" />
+    <DataViewer :source="source" :headers="headers" :create="create" :title="title" :show="show"  />
   </v-container>
 
 </back>

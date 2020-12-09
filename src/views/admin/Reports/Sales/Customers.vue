@@ -37,7 +37,7 @@
                 class="auto"
                 cols="12"
                 sm="8"
-                md="10">
+                md="12">
                 <div class="overline mb-4 green--text ">
                         <h2 >All Customers</h2>
                 </div>

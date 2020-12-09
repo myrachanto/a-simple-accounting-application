@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="inspire" app>
     <v-navigation-drawer
       v-model="drawer"
       app
@@ -22,7 +22,7 @@
       <v-list
         nav
       >
-        <v-list>
+        <v-list  >
         <v-list-item link to="/dashboard">
           <v-list-item-icon>
               <v-icon >mdi mdi-view-dashboard</v-icon>
@@ -82,7 +82,7 @@
       </v-btn>
     </v-app-bar>
 
-    <v-main>
+    <v-main app>
       <slot />
     </v-main>
     <foot/>
@@ -100,7 +100,7 @@ import foot from './foot'
           action: 'mdi mdi-account-multiple',
           items: [
                 {title:'Customers', icon:'mdi mdi-account-multiple', route:'/customer'},
-                {title:'Sales', icon:'mdi mdi mdi-file', route:'/invoice'},
+                {title:'Sales', icon:'mdi-cash-plus', route:'/invoice'},
                 {title:'Credit Note', icon:'mdi mdi mdi-redo', route:'/creditnotes'},
           ],
           title: 'Customer',
@@ -118,10 +118,10 @@ import foot from './foot'
           title: 'Products',
         },
         {
-          action: 'mdi mdi-account-multiple',
+          action: 'mdi-account-multiple-check-outline',
           items: [              
-                {title:'Suppliers', icon:'mdi  mdi-account-multiple',route:'/supplier'},
-                {title:'Purchases', icon:'mdi  mdi-file',route:'/sinvoice'},
+                {title:'Suppliers', icon:'mdi-account-multiple-check-outline',route:'/supplier'},
+                {title:'Purchases', icon:'mdi-cash-minus',route:'/sinvoice'},
                 {title:'Goods Return Note', icon:'mdi  mdi-redo', route: '/grnnotes'},
           ],
           title: 'Suppliers',
@@ -141,18 +141,18 @@ import foot from './foot'
         {
           action: 'mdi-file-chart-outline',
           items: [
-                {title:'Sales', icon:'mdi  mdi-account-multiple',route:'/sales/report'},
-                {title:'Purchases', icon:'mdi  mdi-account-multiple',route:'/purchases/report'},
+                {title:'Sales', icon:'mdi-cash-plus',route:'/sales/report'},
+                {title:'Purchases', icon:'mdi-cash-minus',route:'/purchases/report'},
                 {title:'Expences', icon:'mdi mdi-clipboard-outline',route:'/expences/report'},
                 {title:'Customers', icon:'mdi mdi-account-multiple',route:'/customers/report'},
-                {title:'Suppliers', icon:'mdi mdi-account-multiple',route:'/suppliers/report'},
+                {title:'Suppliers', icon:'mdi-account-multiple-check-outline',route:'/suppliers/report'},
                 {title:'Payments', icon:'mdi  mdi-database-minus',route:'/payments/report'},
                 {title:'Receipts', icon:'mdi mdi-database-plus',route:'/receipts/report'},
           ],
           title: 'Reports',
         },
         {
-          action: 'mdi mdi-account-multiple',
+          action: 'mdi-cog',
           items: [
                 {title:'Users', icon:'mdi  mdi-account-multiple'},
                 {title:'Tax', icon:'mdi  mdi-file', route:'/tax'},

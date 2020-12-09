@@ -9,7 +9,7 @@
 </template>
 <script>
 import back from '@/layouts/back'
-import DataViewer from '@/components/DataViewer'
+import DataViewer from '@/components/DataViewerp'
 export default {
       name: 'CustomerIndex',
     components:{

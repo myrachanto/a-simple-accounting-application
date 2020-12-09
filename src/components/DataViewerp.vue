@@ -70,7 +70,7 @@
   </v-row>
 
   <v-row>
-   <carding v-for="(item, i) in items" :key="i" :name="item.name" :title="item.title" :description="item.description" :id="item.ID" :View="View" :Edit="Edit" />
+   <carding v-for="(item, i) in items" :key="i" :name="item.name" :title="item.company" :description="item.email" :id="item.ID" :View="View" :Edit="Edit" />
   </v-row>
         <v-row align="center"
               justify="center"><v-col cols="12" align="center"
@@ -106,7 +106,7 @@
   export default {
     
     props: ['source', 'headers', 'create', 'title','show'],
-    data(){
+     data(){
         return{
             items:[],
             showFilter: false,

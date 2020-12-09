@@ -1,7 +1,7 @@
 <template>
 <v-container>
   <v-row>
-<v-col offset-sm="1" cols="11">
+<v-col  cols="12">
     <v-toolbar
     >
 <v-toolbar-title>{{title}}</v-toolbar-title>
@@ -13,7 +13,7 @@
 
       <v-btn >
         Pdf
-      </v-btn>
+      </v-btn> 
 
       <v-btn >
         Excel
@@ -45,7 +45,6 @@
           :items="filters"
           label="Search Date"
           v-model="dated"
-          outlined
           @change="selected(dated)"
         ></v-select>
         </v-col>
@@ -156,7 +155,7 @@
             </template>
           <template v-slot:[`item.discount`]="{ item }">
               
-                {{ formatcurrency(item.total) }}
+                {{ formatcurrency(item.discount) }}
             </template>
           <template v-slot:[`item.total`]="{ item }">
               
@@ -170,7 +169,7 @@
               >
                 mdi-eye
               </v-icon>
-              <v-btn color="red"  @click="Edit(item.code)">Cancel</v-btn>
+              <v-btn color="red" dark  @click="Edit(item.code)">Cancel</v-btn>
           
             </template>
             

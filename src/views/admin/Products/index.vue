@@ -1,9 +1,8 @@
 <template>
 <back>
-  <v-container>
-    
+    <div>
 <DataViewer :source="source" :headers="headers" :create="create" :title="title" :show="show" />
-  </v-container>
+    </div>
 
 </back>
 </template>

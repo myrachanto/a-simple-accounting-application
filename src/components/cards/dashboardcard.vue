@@ -1,7 +1,6 @@
 <template>
    <v-card
     class="mx-auto"
-    outlined
     >
     <v-list-item three-line>
         <v-list-item-content>
@@ -19,10 +18,10 @@
         size="80"
         color="grey"
         >
-        <v-icon dark>{{icon}}</v-icon></v-list-item-avatar>
+        <v-icon size="70" dark>{{icon}}</v-icon></v-list-item-avatar>
     </v-list-item>
 
-    <v-card-actions>
+    <v-card-actions v-if="rout">
         <v-btn
         outlined
         rounded
