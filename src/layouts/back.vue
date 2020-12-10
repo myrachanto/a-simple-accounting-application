@@ -132,9 +132,11 @@ import foot from './foot'
                 {title:'Payments', icon:'mdi  mdi-database-minus',route:'/payments'},
                 {title:'Receipts', icon:'mdi  mdi-database-plus',route:'/receipts'},
                 {title:'PaymentForms', icon:'mdi mdi-clipboard-text',route:'/paymentform'},
-                {title:'Expence', icon:'mdi mdi-clipboard-outline',route:'/expence'},
+                {title:'Expence', icon:'mdi mdi-clipboard-outline',route:'/expenceTran'},
                 {title:'AllocatePayments', icon:'mdi mdi-checkbox-multiple-marked',route:'/payments/allocation'},
                 {title:'ALlocateReceipts', icon:'mdi mdi-checkbox-multiple-marked-outline',route:'/receipts/allocation'},
+                {title:'Liability', icon:'mdi mdi-clipboard-outline',route:'/liability'},
+                {title:'Assets', icon:'mdi mdi-clipboard-outline',route:'/assets'},
             ],
           title: 'Accounts',
         },
@@ -154,7 +156,9 @@ import foot from './foot'
         {
           action: 'mdi-cog',
           items: [
-                {title:'Users', icon:'mdi  mdi-account-multiple'},
+                {title:'Users', icon:'mdi  mdi-account-multiple',route:'/users'},
+                {title:'Stocks', icon:'mdi mdi-file-multiple',route:'/products/update'},
+                {title:'Expence', icon:'mdi mdi-clipboard-outline',route:'/expence'},
                 {title:'Tax', icon:'mdi  mdi-file', route:'/tax'},
                 ],
           title: 'Settings',

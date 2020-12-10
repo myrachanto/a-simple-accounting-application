@@ -3,6 +3,7 @@ import Product from '@/views/admin/Products'
 import ProductForm from '@/views/admin/Products/form'
 import ProductShow from '@/views/admin/Products/show'
 import ProductEdit from '@/views/admin/Products/edit'
+import Stock from '@/views/admin/Stock'
 
 
 var token = store.getters.Token
@@ -31,6 +32,13 @@ export const Products = [
     }
   }},
   {path: "/products/:id/edit",component: ProductEdit, beforeEnter(to, from, next) {
+    if (token && isadmin){
+      next()
+    }else{
+      next('/')
+    }
+  }},
+  {path: "/products/update",component: Stock, beforeEnter(to, from, next) {
     if (token && isadmin){
       next()
     }else{

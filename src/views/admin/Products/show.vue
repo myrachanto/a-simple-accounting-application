@@ -99,7 +99,7 @@ export default {
         timeout:3000,
         tab: null,
         items: [
-          'Product', 'Invoices', 'Credit Notes', 'Remarks',
+          'Product', 'Sales', 'Purchases', 'Statement',
         ],
         invoiceheaders:[
           { text: 'Name', value: 'name' },

@@ -168,19 +168,30 @@
                                     <v-col
                                       cols="12"
                                       md="4"
-                                    ><validation-provider
-                                        v-slot="{ errors }"
-                                        name="Clearancedate"
-                                        rules="required|"
-                                      >
-                                      <v-text-field
-                                        v-model="form.clearancedate"
-                                        label="Clearance Date"
-                                        type="date"
-                                        :error-messages="errors"   
-                                        required
-                                      ></v-text-field>
-                                      </validation-provider>
+                                    >
+                                    <v-menu
+                                          v-model="menu2"
+                                          :close-on-content-click="false"
+                                          :nudge-right="40"
+                                          transition="scale-transition"
+                                          offset-y
+                                          min-width="290px"
+                                        >
+                                          <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field
+                                              v-model="form.clearancedate"
+                                              label="Clearance date"
+                                              prepend-icon="mdi-calendar"
+                                              readonly
+                                              v-bind="attrs"
+                                              v-on="on"
+                                            ></v-text-field>
+                                          </template>
+                                          <v-date-picker
+                                            v-model="form.clearancedate"
+                                            @input="menu2 = false"
+                                          ></v-date-picker>
+                                        </v-menu>
                                     </v-col>
                                      <v-col
                                       cols="12"
@@ -197,6 +208,53 @@
                                     label="Status"
                                   ></v-select>
                                       </validation-provider>
+                                    </v-col>
+                                  </v-row>
+
+                                  <v-row>
+                                    <v-col
+                                      cols="12"
+                                      md="4"
+                                    > <validation-provider
+                                        v-slot="{ errors }"
+                                        name="chequeno"
+                                        rules="required"
+                                      >
+                                      <v-text-field
+                                        v-model="form.chequeno"
+                                        :error-messages="errors"      
+                                        label="Cheque Number"
+                                        required
+                                      ></v-text-field>
+                                      </validation-provider>
+                                    </v-col>
+
+                                    <v-col
+                                      cols="12"
+                                      md="4">
+                                    <v-menu
+                                          v-model="menu"
+                                          :close-on-content-click="false"
+                                          :nudge-right="40"
+                                          transition="scale-transition"
+                                          offset-y
+                                          min-width="290px"
+                                        >
+                                          <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field
+                                              v-model="form.expirydate"
+                                              label="Expiry date"
+                                              prepend-icon="mdi-calendar"
+                                              readonly
+                                              v-bind="attrs"
+                                              v-on="on"
+                                            ></v-text-field>
+                                          </template>
+                                          <v-date-picker
+                                            v-model="form.expirydate"
+                                            @input="menu = false"
+                                          ></v-date-picker>
+                                        </v-menu>
                                     </v-col>
                                   </v-row>
                                    <v-row>
@@ -278,8 +336,13 @@ export default {
             status: '',
             clearancedate:null,
             description:'',
-            code:''
+            code:'',
+            chequeno:'',
+            expirydate:null
         },
+        menu: false,
+        menu2: false,
+        modal: false,
         itemos:[
           "pending",
           "cleared",
@@ -315,6 +378,8 @@ export default {
                  fd.append("description", this.form.description)
                  fd.append("clearancedate", this.form.clearancedate)
                  fd.append("status", this.form.status)
+                 fd.append("expirydate", this.form.expirydate)
+                 fd.append("chequeno", this.form.chequeno)
                  fd.append("type", this.pay)
                  fd.append("code", this.code)
                   fd.append("usercode", this.$store.getters.usercode);

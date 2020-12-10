@@ -100,7 +100,7 @@ export default {
         timeout:3000,
         tab: null,
         items: [
-          'Profile', 'Invoices', 'Credit Notes', 'Remarks',
+          'Profile', 'Invoices', 'Credit Notes','Statement', 'Remarks',
         ],
         invoiceheaders:[
          { text: 'Name', value: 'name' },

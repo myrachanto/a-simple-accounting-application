@@ -9,7 +9,7 @@
                 class="auto"
                 cols="12"
                 sm="8"
-                md="4">
+                md="3">
                  <Dcard :title="totals.Name" :total="formatcurrency(totals.Total)" 
                  :desc="totals.Description" :icon="`mdi-cash-multiple`" />
                 </v-col>
@@ -17,15 +17,22 @@
                 class="auto"
                 cols="12"
                 sm="8"
-                md="4">
+                md="3">
                  <Dcard :title="directexpences.Name" :total="formatcurrency(directexpences.Total)" :desc="directexpences.Description" :icon="`mdi-cards-outline`"/>
                 </v-col>
                 <v-col  v-if="indirectexpences"
                 class="auto"
                 cols="12"
                 sm="8"
-                md="4">
+                md="3">
                  <Dcard :title="indirectexpences.Name" :total="formatcurrency(indirectexpences.Total)" :desc="indirectexpences.Description" :icon="`mdi-cash-usd-outline`" />
+                </v-col> 
+                <v-col  v-if="others"
+                class="auto"
+                cols="12"
+                sm="8"
+                md="3">
+                 <Dcard :title="others.Name" :total="formatcurrency(others.Total)" :desc="others.Description" :icon="`mdi-cash-usd-outline`" />
                 </v-col> 
       </v-row>
 
@@ -73,6 +80,7 @@ export default {
       directexpences:{},
       indirectexpences:{},
       expences:[],
+      others:[],
       errs:{},
       headers:[
           { text: 'Name', value: 'name' },
@@ -104,11 +112,12 @@ export default {
       try{
           const {data} = await axios.get("api/expencetransanctions/report")
           this.dcards = data
-           const { expences, total,directexpences,indirectexpences} = data
+           const { expences, total,directexpences,indirectexpences, others} = data
            this.totals = total
            this.directexpences = directexpences
            this.indirectexpences = indirectexpences
            this.expences = expences
+           this.others = others
           //  console.log(debtors,transactions)
         }catch(err){
          this.snackbar = true

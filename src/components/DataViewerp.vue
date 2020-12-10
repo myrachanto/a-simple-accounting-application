@@ -113,7 +113,7 @@
             search : '',
             page:1,
             pagesize:12,
-            show1:false              
+            show1:false               
         }
     },
     components:{

@@ -18,6 +18,10 @@ import {Expences} from "./modules/expence"
 import {Receipts} from "./modules/receipts"
 import {SupInvoice} from "./modules/suppierinvoice"
 import {Payments} from "./modules/payments"
+import {Liabilitys} from "./modules/liability"
+import {Assets} from "./modules/asset"
+import {Users} from "./modules/user"
+import {ExpenceTrans} from "./modules/expencestran"
 
 Vue.use(VueRouter);
 
@@ -39,7 +43,11 @@ const routes = [
   ...Expences,
   ...Receipts,
   ...SupInvoice,
-  ...Payments
+  ...Payments,
+  ...Liabilitys,
+  ...Assets,
+  ...Users,
+  ...ExpenceTrans
 
   
 ];

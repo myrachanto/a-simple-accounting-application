@@ -37,24 +37,57 @@
                                   <v-row>
                                     <v-col
                                       cols="12"
-                                      md="6"
-                                    >  <v-autocomplete
-                                        v-model="supplier"
-                                        :items="suppliers"
+                                      md="4"
+                                    ><validation-provider
+                                        v-slot="{ errors }"
+                                        name="name"
+                                        rules="required"
+                                      >
+                                      <v-text-field
+                                        v-model="form.name"
+                                        :error-messages="errors"      
+                                        label="Name"
+                                        required
+                                      ></v-text-field>
+                                      </validation-provider>
+                                    </v-col>
+
+                                    <v-col
+                                      cols="12"
+                                      md="4"
+                                    > <validation-provider
+                                        v-slot="{ errors }"
+                                        name="creditor"
+                                        rules="required"
+                                      >
+                                      <v-text-field
+                                        v-model="form.creditor"
+                                        :error-messages="errors"      
+                                        label="Creditor"
+                                        required
+                                      ></v-text-field>
+                                      </validation-provider>
+                                    </v-col>
+                                    <v-col
+                                      cols="12"
+                                      md="4"
+                                    > <v-autocomplete
+                                        v-model="user"
+                                        :items="users"
                                         chips
                                         clearable
                                         hide-details
                                         hide-selected
-                                        item-text="name"
-                                        item-value="name"
-                                        label="Search Supplier..."
+                                        item-text="uname"
+                                        item-value="uname"
+                                        label="Search User..."
                                         solo
                                       >
                                         <template v-slot:no-data>
                                           <v-list-item>
                                             <v-list-item-title>
                                               Search for 
-                                              <strong>Supplier</strong>
+                                              <strong>User</strong>
                                             </v-list-item-title>
                                           </v-list-item>
                                         </template>
@@ -69,7 +102,7 @@
                                             <v-icon left>
                                               mdi-account-circle
                                             </v-icon>
-                                            <span v-text="item.name"></span>
+                                            <span v-text="item.uname"></span>
                                           </v-chip>
                                         </template>
                                         <template v-slot:item="{ item }">
@@ -77,69 +110,14 @@
                                             color="indigo"
                                             class="headline font-weight-light white--text"
                                           >
-                                            {{ item.name.charAt(0) }}
+                                            {{ item.uname.charAt(0) }}
                                           </v-list-item-avatar>
                                           <v-list-item-content>
-                                            <v-list-item-title v-text="item.name"></v-list-item-title>
-                                            <v-list-item-subtitle >{{item.company}}</v-list-item-subtitle>
+                                            <v-list-item-title v-text="item.fname"></v-list-item-title>
+                                            <v-list-item-subtitle >{{item.uname}}</v-list-item-subtitle>
                                           </v-list-item-content>
                                           <v-list-item-action>
                                             <v-icon>mdi-account-circle</v-icon>
-                                          </v-list-item-action>
-                                        </template>
-                                      </v-autocomplete>
-                                    </v-col>
-
-                                    <v-col
-                                      cols="12"
-                                      md="6"
-                                    > <v-autocomplete
-                                        v-model="pay"
-                                        :items="paymentforms"
-                                        chips
-                                        clearable
-                                        hide-details
-                                        hide-selected
-                                        item-text="name"
-                                        item-value="name"
-                                        label="Search Payment form..."
-                                        solo
-                                      >
-                                        <template v-slot:no-data>
-                                          <v-list-item>
-                                            <v-list-item-title>
-                                              Search for 
-                                              <strong>Payment form</strong>
-                                            </v-list-item-title>
-                                          </v-list-item>
-                                        </template>
-                                        <template v-slot:selection="{ attr, on, item, selected }">
-                                          <v-chip
-                                            v-bind="attr"
-                                            :input-value="selected"
-                                            color="blue-grey"
-                                            class="white--text"
-                                            v-on="on"
-                                          >
-                                            <v-icon left>
-                                              mdi-cash-plus
-                                            </v-icon>
-                                            <span v-text="item.name"></span>
-                                          </v-chip>
-                                        </template>
-                                        <template v-slot:item="{ item }">
-                                          <v-list-item-avatar
-                                            color="indigo"
-                                            class="headline font-weight-light white--text"
-                                          >
-                                            {{ item.name.charAt(0) }}
-                                          </v-list-item-avatar>
-                                          <v-list-item-content>
-                                            <v-list-item-title v-text="item.name"></v-list-item-title>
-                                            <v-list-item-subtitle >{{item.description}}</v-list-item-subtitle>
-                                          </v-list-item-content>
-                                          <v-list-item-action>
-                                            <v-icon>mdi-cash-plus</v-icon>
                                           </v-list-item-action>
                                         </template>
                                       </v-autocomplete>
@@ -164,49 +142,38 @@
                                       ></v-text-field>
                                       </validation-provider>
                                     </v-col>
-
                                     <v-col
                                       cols="12"
                                       md="4"
-                                    >
-                                    <v-menu
-                                          v-model="menu2"
-                                          :close-on-content-click="false"
-                                          :nudge-right="40"
-                                          transition="scale-transition"
-                                          offset-y
-                                          min-width="290px"
-                                        >
-                                          <template v-slot:activator="{ on, attrs }">
-                                            <v-text-field
-                                              v-model="form.clearancedate"
-                                              label="Clearance date"
-                                              prepend-icon="mdi-calendar"
-                                              readonly
-                                              v-bind="attrs"
-                                              v-on="on"
-                                            ></v-text-field>
-                                          </template>
-                                          <v-date-picker
-                                            v-model="form.clearancedate"
-                                            @input="menu2 = false"
-                                          ></v-date-picker>
-                                        </v-menu>
+                                    > <validation-provider
+                                        v-slot="{ errors }"
+                                        name="interest rate"
+                                        rules="required"
+                                      >
+                                      <v-text-field
+                                        v-model="form.interestrate"
+                                        :error-messages="errors"      
+                                        label="Interest Rate"
+                                        type="number"
+                                        required
+                                      ></v-text-field>
+                                      </validation-provider>
                                     </v-col>
                                      <v-col
                                       cols="12"
                                       md="4"
-                                    ><validation-provider
+                                    > <validation-provider
                                         v-slot="{ errors }"
-                                        name="status"
-                                        rules="required|"
+                                        name="payment period"
+                                        rules="required"
                                       >
-                                     <v-select
-                                     v-model="form.status"
-                                    :items="itemos"
-                                    :error-messages="errors"  
-                                    label="Status"
-                                  ></v-select>
+                                      <v-text-field
+                                        v-model="form.paymentperiod"
+                                        :error-messages="errors"      
+                                        label="Payment period"
+                                        type="number"
+                                        required
+                                      ></v-text-field>
                                       </validation-provider>
                                     </v-col>
                                   </v-row>
@@ -217,13 +184,13 @@
                                       md="4"
                                     > <validation-provider
                                         v-slot="{ errors }"
-                                        name="chequeno"
+                                        name="amount interest"
                                         rules="required"
                                       >
                                       <v-text-field
-                                        v-model="form.chequeno"
+                                        v-model="form.amountinterest"
                                         :error-messages="errors"      
-                                        label="Cheque Number"
+                                        label="Total interest"
                                         required
                                       ></v-text-field>
                                       </validation-provider>
@@ -231,30 +198,19 @@
 
                                     <v-col
                                       cols="12"
-                                      md="4">
-                                    <v-menu
-                                          v-model="menu"
-                                          :close-on-content-click="false"
-                                          :nudge-right="40"
-                                          transition="scale-transition"
-                                          offset-y
-                                          min-width="290px"
-                                        >
-                                          <template v-slot:activator="{ on, attrs }">
-                                            <v-text-field
-                                              v-model="form.expirydate"
-                                              label="Expiry date"
-                                              prepend-icon="mdi-calendar"
-                                              readonly
-                                              v-bind="attrs"
-                                              v-on="on"
-                                            ></v-text-field>
-                                          </template>
-                                          <v-date-picker
-                                            v-model="form.expirydate"
-                                            @input="menu = false"
-                                          ></v-date-picker>
-                                        </v-menu>
+                                      md="4"
+                                    > <validation-provider
+                                        v-slot="{ errors }"
+                                        name="monthly payment"
+                                        rules="required"
+                                      >
+                                      <v-text-field
+                                        v-model="form.monthlypayment"
+                                        :error-messages="errors"      
+                                        label="Monthly payment "
+                                        required
+                                      ></v-text-field>
+                                      </validation-provider>
                                     </v-col>
                                   </v-row>
                                    <v-row>
@@ -330,33 +286,26 @@ export default {
   data(){
     return{
         form:{
-            customername:'',
-            type:'',
-            amount:0,
-            status: '',
-            clearancedate:null,
-            description:'',
-            code:'',
-            chequeno:'',
-            expirydate:null
+            name:'',
+            creditor:'',
+            approvedby:'',
+            amount: 0,
+            interestrate:0,
+            paymentperiod:0,
+            amountinterest:0,
+            monthlypayment:0,
+            description:''
         },
-        menu: false,
-        menu2: false,
-        modal: false,
-        itemos:[
-          "pending",
-          "cleared",
-        ],
         errs:{},
-        pay:'',
-        supplier:'',
-        suppliers:[],
-        code: '',
-        paymentforms:[],
+        code:'',
+        user:{},
+        users:[],
+        liability:'',
+        liabilitys:[],
         title:'Create',
-        init:'api/payments/view',
-        redirect: '/payments',
-        store: 'api/payments',
+        init:'api/liability/view',
+        redirect: '/liability',
+        store: 'api/liability',
         method: 'post',
         snackbar:false,
         timeout:3000
@@ -373,14 +322,15 @@ export default {
    async save(){
       try{
             let fd = new FormData();
-                 fd.append("suppliername", this.supplier)
-                 fd.append("amount", this.form.amount)
+                 fd.append("name", this.user)
+                 fd.append("creditor", this.form.creditor)
                  fd.append("description", this.form.description)
-                 fd.append("clearancedate", this.form.clearancedate)
-                 fd.append("status", this.form.status)
-                 fd.append("expirydate", this.form.expirydate)
-                 fd.append("chequeno", this.form.chequeno)
-                 fd.append("type", this.pay)
+                 fd.append("approvedby", this.form.approvedby)
+                 fd.append("amount", this.form.amount)
+                 fd.append("interestrate", this.form.interestrate)
+                 fd.append("paymentperiod", this.form.paymentperiod)
+                 fd.append("monthlypayment", this.form.monthlypayment)
+                 fd.append("amountinterest", this.form.amountinterest)
                  fd.append("code", this.code)
                 fd.append("usercode", this.$store.getters.usercode);
                 const {data} = await axios.post(this.store, fd ,{'Content-Type': 'multipart/form-data'})
@@ -398,10 +348,9 @@ export default {
         try{
             // console.log(token)
            const {data} = await axios.get(`${this.init}`)
-          const { suppliers, code, paymentforms } = data
-            this.suppliers = suppliers
-            this.paymentforms = paymentforms
+           const {code, users} = data
             this.code = code
+            this.users = users
         }catch(err){
            console.log(err)
         }
