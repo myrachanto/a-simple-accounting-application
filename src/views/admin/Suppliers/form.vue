@@ -37,7 +37,7 @@
                                   <v-row>
                                     <v-col
                                       cols="12"
-                                      md="6"
+                                      md="4"
                                     > <validation-provider
                                         v-slot="{ errors }"
                                         name="name"
@@ -54,7 +54,7 @@
 
                                     <v-col
                                       cols="12"
-                                      md="6"
+                                      md="4"
                                     ><validation-provider
                                         v-slot="{ errors }"
                                         name="Company"
@@ -63,6 +63,22 @@
                                       <v-text-field
                                         v-model="form.company"
                                         label="Company"
+                                        :error-messages="errors"   
+                                        required
+                                      ></v-text-field>
+                                      </validation-provider>
+                                    </v-col>
+                                     <v-col
+                                      cols="12"
+                                      md="4"
+                                    ><validation-provider
+                                        v-slot="{ errors }"
+                                        name="Businesspin"
+                                        rules="required|"
+                                      >
+                                      <v-text-field
+                                        v-model="form.businesspin"
+                                        label="Business pin"
                                         :error-messages="errors"   
                                         required
                                       ></v-text-field>
@@ -218,6 +234,7 @@ export default {
             address:'',
             email:'',
             password:'',
+            businesspin:'',
             picture:{}
         },
         errs:{},
@@ -249,6 +266,7 @@ export default {
                  fd.append("address", this.form.address)
                  fd.append("password", this.form.password)
                  fd.append("email", this.form.email)
+                 fd.append("businesspin", this.form.businesspin)
                  fd.append("usercode", this.$store.getters.usercode);
                 const {data} = await axios.post(this.store, fd ,{'Content-Type': 'multipart/form-data'})
               if(data){

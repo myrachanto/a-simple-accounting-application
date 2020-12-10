@@ -133,7 +133,7 @@ import foot from './foot'
                 {title:'Receipts', icon:'mdi  mdi-database-plus',route:'/receipts'},
                 {title:'PaymentForms', icon:'mdi mdi-clipboard-text',route:'/paymentform'},
                 {title:'Expence', icon:'mdi mdi-clipboard-outline',route:'/expence'},
-                {title:'AllocatePayments', icon:'mdi mdi-checkbox-multiple-marked'},
+                {title:'AllocatePayments', icon:'mdi mdi-checkbox-multiple-marked',route:'/payments/allocation'},
                 {title:'ALlocateReceipts', icon:'mdi mdi-checkbox-multiple-marked-outline',route:'/receipts/allocation'},
             ],
           title: 'Accounts',

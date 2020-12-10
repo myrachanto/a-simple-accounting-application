@@ -38,7 +38,7 @@
                                   <v-row>
                                     <v-col
                                       cols="12"
-                                      md="6"
+                                      md="4"
                                     > <validation-provider
                                         v-slot="{ errors }"
                                         name="name"
@@ -55,7 +55,7 @@
 
                                     <v-col
                                       cols="12"
-                                      md="6"
+                                      md="4"
                                     ><validation-provider
                                         v-slot="{ errors }"
                                         name="Company"
@@ -68,13 +68,27 @@
                                         required
                                       ></v-text-field>
                                       </validation-provider>
+                                    </v-col> <v-col
+                                      cols="12"
+                                      md="4"
+                                    ><validation-provider
+                                        v-slot="{ errors }"
+                                        name="Businesspin"
+                                        rules="required|"
+                                      >
+                                      <v-text-field
+                                        v-model="form.businesspin"
+                                        label="Business pin"
+                                        :error-messages="errors"   
+                                        required
+                                      ></v-text-field>
+                                      </validation-provider>
                                     </v-col>
                                   </v-row>
                                       <v-row>
                                   <v-col
-                                    class="d-flex"
                                     cols="12"
-                                    sm="6"
+                                    md="6"
                                   >
                                     <validation-provider
                                         v-slot="{ errors }"
@@ -214,6 +228,7 @@ export default {
             phone:'',
             address:'',
             email:'',
+            businesspin:'',
             picture:null
         },
         majorcats:[],
@@ -251,6 +266,7 @@ export default {
                  fd.append("phone", this.form.phone)
                  fd.append("address", this.form.address)
                  fd.append("email", this.form.email)
+                 fd.append("businesspin", this.form.businesspin)
             // axios.defaults.headers.common['Content-Type'] = 'multipart/form-data'
             const {data} = await axios.put(`${this.store}/${this.$route.params.id}`, 
                fd ,{'Content-Type': 'multipart/form-data'})
