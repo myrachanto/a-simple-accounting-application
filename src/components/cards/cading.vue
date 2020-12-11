@@ -12,7 +12,7 @@
            class="height=300px"
            style="background:#CFD8DC"
            >
-      <v-card-title >{{title}}</v-card-title>
+      <v-card-title class="black--text text--black-3">{{title}}</v-card-title>
     </div>
 
     <v-card-title class="pb-0">

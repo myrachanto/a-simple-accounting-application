@@ -137,7 +137,7 @@
             :headers="headers"
             :items="items"
             item-key="ID"
-            class="elevation-1 display-2"
+            class="elevation-1 display-2" 
             style="font-size:10rem"
           :footer-props="{
               'items-per-page-options': [5,10, 20, 30, 40, 50]
