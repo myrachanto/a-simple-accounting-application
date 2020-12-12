@@ -1,7 +1,7 @@
 <template>
 <back>
  <v-container fluid>
-   <v-row>
+      <v-row>
 <v-col cols="12">
     <template>
   <v-expansion-panels>
@@ -112,27 +112,27 @@
         <v-row align="center"
               justify="center"
               > 
-              <v-col v-if="allcustomers"
+              <v-col v-if="product"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="4">
-                 <Dcard :title="allcustomers.Name" :total="String(allcustomers.Total)" 
-                 :desc="allcustomers.Description" :icon="`mdi-account-multiple`" />
+                 <Dcard :title="product.Name" :total="String(product.Total)" 
+                 :desc="product.Description" :icon="`mdi-account-multiple-check-outline`" />
                 </v-col>
-                <v-col v-if="lastweek"
+                <v-col v-if="sold"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="4">
-                 <Dcard :title="lastweek.Name" :total="String(lastweek.Total)" :desc="lastweek.Description" :icon="`mdi-account-multiple`"/>
+                 <Dcard :title="sold.Name" :total="String(sold.Total)" :desc="sold.Description" :icon="`mdi-account-multiple-check-outline`"/>
                 </v-col>
-                <v-col  v-if="todays"
+                <v-col  v-if="bought"
                 class="auto"
                 cols="12"
                 sm="8"
                 md="4">
-                 <Dcard :title="todays.Name" :total="String(todays.Total)" :desc="todays.Description" :icon="`mdi-account-multiple`" />
+                 <Dcard :title="bought.Name" :total="String(bought.Total)" :desc="bought.Description" :icon="`mdi-account-multiple-check-outline`" />
                 </v-col> 
       </v-row>
 
@@ -146,11 +146,11 @@
                 sm="8"
                 md="12">
                 <div class="overline mb-4 green--text ">
-                        <h2 >All Customers</h2>
+                        <h2 >All suppliers</h2>
                 </div>
                  <v-data-table
                   :headers="headers"
-                  :items="customers"
+                  :items="products"
                   item-key="name"
                   class="elevation-1 display-2"
                   style="font-size:10rem"
@@ -172,19 +172,20 @@ import back from '@/layouts/back'
 export default {
     data(){
     return{
-      allcustomers:{},
-      lastweek:{},
-      todays:{},
-      customers:[],
+      product:{},
+      sold:{},
+      bought:{},
+      products:[],
       errs:{},
-      store:'api/customer/report',
+      store:'api/product/report',
        headers:[
                 { text: 'Id', value: 'ID' },
                 { text: 'Name', value: 'name' },
-                { text: 'Company', value: 'company' },
-                { text: 'Address', value: 'address' },
-                { text: 'Phone', value: 'phone' },
-                { text: 'Email', value: 'email' },
+                { text: 'Title', value: 'title' },
+                { text: 'Description', value: 'description' },
+                { text: 'Quantity', value: 'quantity' },
+                { text: 'Price', value: 'price' },
+                { text: 'Actions', value: 'actions' },
               ],
             dated:'In the last 30days',
             searchq2 : '',
@@ -220,7 +221,7 @@ export default {
           }else {
             this.custom = false
           }
-        },
+        },   
    resetFilter(){
             this.search = ''
             this.dated = ''
@@ -232,14 +233,12 @@ export default {
       async GetData(){
           try{
             var p = this
-              const {data} = await axios.get(`${this.store}?dated=${p.dated}&searchq2=${p.searchq2}&searchq3=${p.searchq3}`)
-          // const {data} = await axios.get("api/customer/report")
-          this.dcards = data
-           const { customers, lastweek,todays,allcustomers } = data
-           this.customers = customers
-           this.lastweek = lastweek
-           this.todays = todays
-           this.allcustomers = allcustomers
+            const {data} = await axios.get(`${this.store}?dated=${p.dated}&searchq2=${p.searchq2}&searchq3=${p.searchq3}`)
+           const { products, product,sold,bought } = data
+           this.products = products
+           this.product = product
+           this.sold = sold
+           this.bought = bought
           //  console.log(debtors,transactions)
         }catch(err){
          this.snackbar = true

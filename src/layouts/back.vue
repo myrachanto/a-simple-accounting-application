@@ -131,7 +131,6 @@ import foot from './foot'
           items: [
                 {title:'Payments', icon:'mdi  mdi-database-minus',route:'/payments'},
                 {title:'Receipts', icon:'mdi  mdi-database-plus',route:'/receipts'},
-                {title:'PaymentForms', icon:'mdi mdi-clipboard-text',route:'/paymentform'},
                 {title:'Expence', icon:'mdi mdi-clipboard-outline',route:'/expenceTran'},
                 {title:'AllocatePayments', icon:'mdi mdi-checkbox-multiple-marked',route:'/payments/allocation'},
                 {title:'ALlocateReceipts', icon:'mdi mdi-checkbox-multiple-marked-outline',route:'/receipts/allocation'},
@@ -146,6 +145,7 @@ import foot from './foot'
                 {title:'Sales', icon:'mdi-cash-plus',route:'/sales/report'},
                 {title:'Purchases', icon:'mdi-cash-minus',route:'/purchases/report'},
                 {title:'Expences', icon:'mdi mdi-clipboard-outline',route:'/expences/report'},
+                {title:'Products', icon:'mdi mdi-file-multiple',route:'/product/report'},
                 {title:'Customers', icon:'mdi mdi-account-multiple',route:'/customers/report'},
                 {title:'Suppliers', icon:'mdi-account-multiple-check-outline',route:'/suppliers/report'},
                 {title:'Payments', icon:'mdi  mdi-database-minus',route:'/payments/report'},
@@ -157,6 +157,7 @@ import foot from './foot'
           action: 'mdi-cog',
           items: [
                 {title:'Users', icon:'mdi  mdi-account-multiple',route:'/users'},
+                {title:'PaymentForms', icon:'mdi mdi-clipboard-text',route:'/paymentform'},
                 {title:'Stocks', icon:'mdi mdi-file-multiple',route:'/products/update'},
                 {title:'Expence', icon:'mdi mdi-clipboard-outline',route:'/expence'},
                 {title:'Tax', icon:'mdi  mdi-file', route:'/tax'},

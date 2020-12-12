@@ -149,7 +149,6 @@ export default {
             
           }
       },
-
     created(){
           this.GetData()
        },
@@ -173,7 +172,6 @@ export default {
             this.pagesize=12     
             this.GetData()
         },
-
          async save(form) {
           try {
             let fd = new FormData();
@@ -195,7 +193,6 @@ export default {
           let vm = this
            const {data} = await axios.get(`${this.source}?q=${vm.search}&&page=${vm.page}&&pagesize=${vm.pagesize}`)
             this.items = data 
-
             // console.log(data)
         }catch(err){
            console.log(err)
@@ -206,5 +203,4 @@ export default {
 </script>
 
 <style>
-
 </style>

@@ -1,6 +1,114 @@
 <template>
 <back>
  <v-container fluid>
+         <v-row>
+<v-col cols="12">
+    <template>
+  <v-expansion-panels>
+    <v-expansion-panel
+    >
+      <v-expansion-panel-header>
+        Search
+      </v-expansion-panel-header>
+      <v-expansion-panel-content>
+       <v-row>
+        <v-col
+          cols="12"
+          md="4">
+           <v-select
+          :items="filters"
+          label="Search Date"
+          v-model="dated"
+          @change="selected(dated)"
+        ></v-select>
+        </v-col>
+        <v-col
+      cols="12"
+      sm="6"
+      md="3"
+      v-if="custom"
+    >
+      <v-menu
+        v-model="menu"
+        :close-on-content-click="false"
+        :nudge-right="40"
+        transition="scale-transition"
+        offset-y
+        min-width="290px"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-text-field
+            v-model="searchq2"
+            label="Between Date"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+        </template>
+        <v-date-picker
+          v-model="searchq2"
+          @input="menu = false"
+        ></v-date-picker>
+      </v-menu>
+    </v-col>
+    <v-col
+      cols="12"
+      sm="6"
+      md="3"
+      v-if="custom"
+    >
+      <v-menu
+        v-model="menu2"
+        :close-on-content-click="false"
+        :nudge-right="40"
+        transition="scale-transition"
+        offset-y
+        min-width="290px"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-text-field
+            v-model="searchq3"
+            label="And Date"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+        </template>
+        <v-date-picker
+          v-model="searchq3"
+          @input="menu2 = false"
+        ></v-date-picker>
+      </v-menu>
+    </v-col>
+
+        <v-col
+          cols="12"
+          md="2"
+        >
+         <v-btn class="ma-2" 
+      depressed
+      color="success"
+      @click="GetData()"
+    >
+      Search
+    </v-btn>
+         <v-btn class="ma-2" 
+      depressed
+      color="primary"
+      @click="resetFilter"
+    >
+      Reset
+    </v-btn>
+        </v-col>
+      </v-row></v-expansion-panel-content>
+    </v-expansion-panel>
+  </v-expansion-panels>
+    </template>
+   
+</v-col>
+  </v-row>
               <h1>Sales report</h1>
         <v-row align="center"
               justify="center"
@@ -134,8 +242,9 @@ export default {
       grossprofit:{},
       debtors:[],
       creditnotes:[],   
-      transactions:[],
+      transactions:[], 
       errs:{},
+      store:'api/sales/dashboard',
       transactionheader:[
           { text: 'Name', value: 'name' },
           { text: 'Invoice No', value: 'code' },
@@ -152,7 +261,22 @@ export default {
           { text: 'Description', value: 'description' },
           { text: 'Amount', value: 'amount' },
           { text: 'Actions', value: 'actions', sortable: false },
-      ]
+      ],
+            dated:'In the last 30days',
+            searchq2 : '',
+            searchq3 : '',
+            custom: false,
+            // date: new Date().toISOString().substr(0, 10),
+            menu: false,
+            modal: false,
+            menu2: false,
+            filters:[
+              'In the last 24hrs',
+              'In the last 7days',
+              'In the last 15day',
+              'In the last 30days',
+              'custom'
+            ]
     }
   },
 
@@ -162,7 +286,7 @@ export default {
   },
   created() {
     
-      this.fetchData()
+      this.GetData()
       // this.newInvoice()
     
   },
@@ -173,10 +297,24 @@ export default {
     View(code){
       this.$router.push(`/invoice/show/${code }`)
     },
-    async fetchData(){
-      try{
-          const {data} = await axios.get("api/sales/dashboard")
-          this.dcards = data
+        selected(val){
+          if (val === 'custom'){
+            this.custom = true
+          }else {
+            this.custom = false
+          }
+        },   
+   resetFilter(){
+            this.dated = 'In the last 30days'
+            this.searchq2 = ''
+            this.searchq3 = ''
+            this.custom = false
+            this.GetData()
+        },
+      async GetData(){
+          try{
+            var p = this
+            const {data} = await axios.get(`${this.store}?dated=${p.dated}&searchq2=${p.searchq2}&searchq3=${p.searchq3}`)
            const { sales, grossprofit,transactions,debtors,debts,paid, creditnotes} = data
            this.paid = paid
            this.debts = debts

@@ -3,13 +3,6 @@
  <v-container fluid>
       <v-row>
 <v-col cols="12">
-    <v-toolbar
-    
-    >
-<v-toolbar-title>Customer Details</v-toolbar-title>
-<v-spacer></v-spacer>
-
-    </v-toolbar>
     <template>
   <v-expansion-panels>
     <v-expansion-panel
@@ -116,7 +109,6 @@
    
 </v-col>
   </v-row>
-              <h1>Suppliers report</h1>
         <v-row align="center"
               justify="center"
               > 
@@ -185,6 +177,7 @@ export default {
       todays:{},
       suppliers:[],
       errs:{},
+      store:'api/supplier/report',
        headers:[
                 { text: 'Id', value: 'ID' },
                 { text: 'Name', value: 'name' },
@@ -216,18 +209,30 @@ export default {
     Dcard
   },
   created() {
-      this.fetchData()
+      this.GetData()
       // this.newInvoice()
     
   },
   methods:{
-    // View(code){
-    //   this.$router.push(`/invoice/show/${code }`)
-    // },
-    async fetchData(){
-      try{
-          const {data} = await axios.get("api/supplier/report")
-          this.dcards = data
+        selected(val){
+          if (val === 'custom'){
+            this.custom = true
+          }else {
+            this.custom = false
+          }
+        },   
+   resetFilter(){
+            this.search = ''
+            this.dated = ''
+            this.searchq2 = ''
+            this.searchq3 = ''
+            this.custom = false
+            this.GetData()
+        },
+      async GetData(){
+          try{
+            var p = this
+            const {data} = await axios.get(`${this.store}?dated=${p.dated}&searchq2=${p.searchq2}&searchq3=${p.searchq3}`)
            const { suppliers, lastweek,todays,allsuppliers } = data
            this.suppliers = suppliers
            this.lastweek = lastweek

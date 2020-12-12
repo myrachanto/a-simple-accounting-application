@@ -55,9 +55,7 @@
 
 <script>
  import axios from '@/axios'
-
 import back from '@/layouts/back'
-
 export default {
   name: "assetsshow",
   components: {
@@ -103,5 +101,4 @@ export default {
 </script>
 
 <style>
-
 </style>
