@@ -73,13 +73,117 @@
       <v-toolbar-title>Estore backend</v-toolbar-title>
       <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-bell</v-icon>
-      </v-btn>
+ <v-menu
+      transition="slide-x-transition"
+      bottom
+      right
+      :nudge-width="500"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn text v-if="n === 0"
+          v-bind="attrs"
+          v-on="on"
+          >
+              <v-icon left dark>
+                mdi-bell
+              </v-icon>
+              </v-btn>
+              <v-btn text v-else
+          v-bind="attrs"
+          v-on="on">
+                  <v-badge
+              color="green"
+              :content="n"
+            >
+              <v-icon left dark>
+                mdi-bell
+              </v-icon>
+            </v-badge>
+              </v-btn>
+      </template>
 
-      <v-btn icon>
-        <v-icon>mdi-email</v-icon>
-      </v-btn>
+      <v-list>
+        <v-list-item
+          v-for="item in nortfications"
+          link
+          :key="item.title"
+          @click="updateNortification(item.ID)"
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-subtitle>{{ item.description }}</v-list-item-subtitle>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+               <v-menu
+      transition="slide-x-transition"
+      bottom
+      right
+      :nudge-width="500"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn text v-if="m === 0"
+          v-bind="attrs"
+          v-on="on"
+          >
+              <v-icon left dark>
+                mdi-email
+              </v-icon>
+              </v-btn>
+              <v-btn text v-else
+          v-bind="attrs"
+          v-on="on">
+                  <v-badge
+              color="green"
+              :content="m"
+            >
+              <v-icon left dark>
+                mdi-email
+              </v-icon>
+            </v-badge>
+              </v-btn>
+      </template>
+
+      <v-list>
+        <v-list-item
+          v-for="item in messages"
+          link
+          :key="item.title"
+          @click="updateMessages(item.ID)"
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-subtitle>{{ item.description }}</v-list-item-subtitle>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+
+      <v-menu
+      transition="slide-x-transition"
+      bottom
+      right
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          class="deep-orange"
+          color="primary"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+          Shortcuts
+        </v-btn>
+      </template>
+
+      <v-list>
+        <v-list-item
+          v-for="item in shortcuts"
+          link
+          :key="item.title"
+          :to="item.route"
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
     </v-app-bar>
 
     <v-main app>
@@ -94,6 +198,10 @@ import axios from '../axios'
 import foot from './foot'
   export default {
     data: () => ({ drawer: null,
+        nortfications:[],
+        messages:[],
+        m:0,
+        n:0,
     
      items: [
         {
@@ -133,7 +241,8 @@ import foot from './foot'
                 {title:'Receipts', icon:'mdi  mdi-database-plus',route:'/receipts'},
                 {title:'Expence', icon:'mdi mdi-clipboard-outline',route:'/expenceTran'},
                 {title:'AllocatePayments', icon:'mdi mdi-checkbox-multiple-marked',route:'/payments/allocation'},
-                {title:'ALlocateReceipts', icon:'mdi mdi-checkbox-multiple-marked-outline',route:'/receipts/allocation'},
+                {title:'AllocateExpences', icon:'mdi mdi-checkbox-multiple-marked',route:'/payments/allocation/expence'},
+                {title:'AllocateReceipts', icon:'mdi mdi-checkbox-multiple-marked-outline',route:'/receipts/allocation'},
                 {title:'Liability', icon:'mdi mdi-clipboard-outline',route:'/liability'},
                 {title:'Assets', icon:'mdi mdi-clipboard-outline',route:'/assets'},
             ],
@@ -167,15 +276,25 @@ import foot from './foot'
         {
           action: 'mdi mdi-account-outline',
           items: [
-                {title:'Profile', icon:'mdi mdi-account-outline'},
-                {title:'Inbox', icon:'mdi mdi-inbox'},
-                {title:'Outgoing', icon:'mdi  mdi-open-in-app'},
+                {title:'Profile', icon:'mdi mdi-account-outline',route:'/user/messages'},
                 // {title:'logout', icon:'mdi  mdi-logout', route:'/logout'},
                 // ['Invoice', 'mdi mdi-file'],
                 ],
           title: 'User',
         },
       ],
+      shortcuts:[
+        {title:'Create a Sale', icon:'mdi-cash-plus', route:'/invoice/create'},
+        {title:'Create a Purchase', icon:'mdi-cash-minus',route:'/sinvoice/create'},
+        {title:'Create a Customer', icon:'mdi mdi-account-multiple', route:'/customer/create'},
+        {title:'Create a Supplier', icon:'mdi-account-multiple-check-outline',route:'/supplier/create'},
+        {title:'Create a Expence', icon:'mdi mdi-clipboard-outline',route:'/expenceTran/create'},
+        {title:'Create a Payment', icon:'mdi  mdi-database-minus',route:'/payments/create'},
+        {title:'Create a Receipt', icon:'mdi  mdi-database-plus',route:'/receipts/create'},
+        {title:'Create a Discount', icon:'mdi mdi-window-minimize', route:'/discounts/create'},
+        {title:'Create a Expence', icon:'mdi mdi-clipboard-outline',route:'/expence/create'},
+        {title:'Create a Tax', icon:'mdi  mdi-file', route:'/tax/create'},
+      ]
      }),
     components:{
         foot
@@ -189,6 +308,12 @@ import foot from './foot'
             return this.$store.getters.picture
         }
     },
+    created() {
+      this.fetchMessages()
+      this.fetchNort()
+      // this.newInvoice()
+    
+  },
     methods:{
          async logout(){
         try {
@@ -203,6 +328,56 @@ import foot from './foot'
                 console.log(err.response.data)
                 this.errs = err.response.data
             }
+      },
+    async updateMessages(id){
+                try{
+                  const {data} = await axios.put(`api/messages/${id}`)
+                      if(data){
+                      this.$router.push(this.redirect)
+                      }
+              }catch(err){
+                  this.snackbar = true
+                  this.errs = err.response.data
+
+              }
+
+        },
+      async updateNortification(id){
+                try{
+                  const {data} = await axios.put(`api/nortifications/${id}`)
+                      if(data){
+                      this.$router.push(this.redirect)
+                      }
+              }catch(err){
+                  this.snackbar = true
+                  this.errs = err.response.data
+
+              }
+
+        },
+    async fetchMessages(){
+        try{
+            const {data} = await axios.get("api/messages/unread")
+            const {num, messages} = data
+            this.m = num
+            this.messages = messages
+          }catch(err){
+          this.snackbar = true
+          //   console.log(err)
+          this.errs = err.response.data 
+          }
+      },
+       async fetchNort(){
+        try{
+            const {data} = await axios.get("api/nortifications/unread")
+            const {num, nortfications} = data
+            this.n = num
+            this.nortfications = nortfications
+          }catch(err){
+          this.snackbar = true
+          //   console.log(err)
+          this.errs = err.response.data
+          }
       },
     }
 

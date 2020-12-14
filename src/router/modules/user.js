@@ -15,7 +15,7 @@ export const Users = [
       next('/')
     }
   }},
-  {path: "/users/show/:id",component: UserShow, beforeEnter(to, from, next) {
+  {path: "/user/messages",component: UserShow, beforeEnter(to, from, next) {
     if (token && isadmin){
       next()
     }else{

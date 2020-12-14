@@ -4,6 +4,7 @@ import PaymentForm from '@/views/admin/Payments/form'
 import PaymentExpence from '@/views/admin/Payments/expence'
 import PaymentShow from '@/views/admin/Payments/show'
 import PaymentAllocation from '@/views/admin/Paymentsallocation'
+import PaymentAllocationExpence from '@/views/admin/Paymentsallocation/expence'
 import PaymentAllocationShow from '@/views/admin/Paymentsallocation/show'
 // import PaymentEdit from '@/views/admin/Payments/edit'
 
@@ -43,6 +44,13 @@ export const Payments = [
     }
   }},
   {path: "/payments/allocation",component: PaymentAllocation, beforeEnter(to, from, next) {
+    if (token && isadmin){
+      next()
+    }else{
+      next('/')
+    }
+  }},
+  {path: "/payments/allocation/expence",component: PaymentAllocationExpence, beforeEnter(to, from, next) {
     if (token && isadmin){
       next()
     }else{

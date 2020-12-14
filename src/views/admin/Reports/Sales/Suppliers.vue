@@ -185,6 +185,7 @@ export default {
                 { text: 'Address', value: 'address' },
                 { text: 'Phone', value: 'phone' },
                 { text: 'Email', value: 'email' },
+                { text: 'Statement', value: 'statement' },
               ],
             dated:'In the last 30days',
             searchq2 : '',

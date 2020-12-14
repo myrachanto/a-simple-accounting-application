@@ -12,7 +12,7 @@
                  <v-col cols="12" md="12">
                     <v-card-text class="mt-12">
                       <h1 class="text-center display-2 teal--text text--accent-3">
-                        New category
+                        New Supplier
                       </h1>
                       
                       <template >  
