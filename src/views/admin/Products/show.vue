@@ -145,11 +145,11 @@
                     </v-tab-item>
                     <v-tab-item
                     >
-                      <invoicecard :headers="invoiceheaders" :items="invoices"/>
+                      <invoicecard :headers="invoiceheaders" :items="sold"/>
                     </v-tab-item>
                     <v-tab-item
                     >
-                      <invoicecard :headers="cnheaders" :items="invoices" />
+                      <invoicecard :headers="cnheaders" :items="bought" />
                     </v-tab-item>
 
                     <v-tab-item
@@ -225,7 +225,7 @@ export default {
           { text: 'Amount', value: 'total' },
           { text: 'Actions', value: 'actions', sortable: false },
         ],
-        invoices:[],
+        sold:[],
         cnheaders:[
           { text: 'Name', value: 'name' },
           { text: 'Invoice No', value: 'code' },
@@ -236,7 +236,7 @@ export default {
           { text: 'Amount', value: 'total' },
           { text: 'Actions', value: 'actions', sortable: false },
         ],
-        creditnotes:[],
+        bought:[],
 
             dated:'In the last 30days',
             searchq2 : '',
@@ -286,10 +286,10 @@ export default {
           try{
             var p = this
               const {data} = await axios.get(`${this.store}/${p.$route.params.id}?dated=${p.dated}&searchq2=${p.searchq2}&searchq3=${p.searchq3}`)
-              const {product, sold,bought} = data
+              const {product, sold ,bought} = data
               this.form = product
-              this.invoices = sold
-              this.credits = bought
+              this.sold = sold
+              this.bought = bought
         }catch(err){
          this.snackbar = true
         //   console.log(err)

@@ -7,6 +7,7 @@ import Suppliers from '@/views/admin/Reports/Sales/Suppliers'
 import Receipts from '@/views/admin/Reports/Sales/Receipts'
 import Payments from '@/views/admin/Reports/Sales/Payments'
 import Products from '@/views/admin/Reports/Sales/Products'
+import Pl from '@/views/admin/Reports/Sales/profitandloss'
 
 
 var token = store.getters.Token
@@ -20,6 +21,13 @@ export const sales = [
     }
   }},
   {path: "/purchases/report",component: Purchases, beforeEnter(to, from, next) {
+    if (token && isadmin){
+      next()
+    }else{
+      next('/')
+    }
+  }},
+  {path: "/profitandloss",component: Pl, beforeEnter(to, from, next) {
     if (token && isadmin){
       next()
     }else{

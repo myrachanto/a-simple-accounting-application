@@ -152,6 +152,10 @@
                     >
                       <invoicecard :headers="cnheaders" :items="credits" />
                     </v-tab-item>
+                    <v-tab-item
+                    >
+                      <invoicecard :headers="headers1" :items="payments" />
+                    </v-tab-item>
 
                     <v-tab-item
                     >
@@ -188,7 +192,7 @@
 
 <script>
  import axios from '@/axios'
- import suppliercard from '@/components/cards/customercard'
+ import suppliercard from '@/components/cards/suppliercard'
  import invoicecard from '@/components/cards/sinvoicecard'
 
 import back from '@/layouts/back'
@@ -215,7 +219,7 @@ export default {
         timeout:3000,
         tab: null,
         items: [
-          'Profile', 'Invoices', 'Good return Notes', 'Remarks',
+          'Profile', 'Invoices', 'Good return Notes','Payments', 'Remarks',
         ],
         invoiceheaders:[
          { text: 'Name', value: 'name' },
@@ -234,6 +238,17 @@ export default {
           { text: 'Actions', value: 'actions', sortable: false },
         ],
         creditnotes:[],
+        payments:[],
+         headers1:[
+                { text: 'Id', value: 'ID' },
+                { text: 'Name', value: 'suppliername' },
+                { text: 'Description', value: 'description' },
+                { text: 'Payment Form', value: 'type' },
+                { text: 'Clearance Date', value: 'clearancedate' },
+                { text: 'Amount', value: 'amount' },
+                { text: 'Status', value: 'status' },
+                { text: 'Actions', value: 'actions', sortable: false },
+              ],
             dated:'In the last 30days',
             searchq2 : '',
             searchq3 : '',
@@ -287,10 +302,11 @@ export default {
           try{
             var p = this
               const {data} = await axios.get(`${this.store}/${p.$route.params.id}?dated=${p.dated}&searchq2=${p.searchq2}&searchq3=${p.searchq3}`)
-          const {supplier, sinvoices,grns} = data
+          const {supplier, sinvoices,grns, payments } = data
           this.form = supplier
           this.invoices = sinvoices
           this.credits = grns
+          this.payments = payments
         }catch(err){
          this.snackbar = true
         //   console.log(err)

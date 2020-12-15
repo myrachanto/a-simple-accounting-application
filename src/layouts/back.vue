@@ -6,7 +6,7 @@
     >
       <v-list-item>
         <v-list-item-avatar>
-          <v-img :src="`http://localhost:5000/imgs/users/${picture}`"></v-img>
+          <v-img :src="`${host}${picture}`"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
@@ -70,27 +70,17 @@
     <v-app-bar app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Estore backend</v-toolbar-title>
+      <v-toolbar-title>Chantos Accounts</v-toolbar-title>
       <v-spacer></v-spacer>
-
- <v-menu
-      transition="slide-x-transition"
-      bottom
-      right
-      :nudge-width="500"
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn text v-if="n === 0"
-          v-bind="attrs"
-          v-on="on"
+      <v-btn text v-if="n === 0"
+               :to="`/user/messages`"
           >
               <v-icon left dark>
                 mdi-bell
               </v-icon>
               </v-btn>
               <v-btn text v-else
-          v-bind="attrs"
-          v-on="on">
+               :to="`/user/messages`">
                   <v-badge
               color="green"
               :content="n"
@@ -100,38 +90,15 @@
               </v-icon>
             </v-badge>
               </v-btn>
-      </template>
-
-      <v-list>
-        <v-list-item
-          v-for="item in nortfications"
-          link
-          :key="item.title"
-          @click="updateNortification(item.ID)"
-        >
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-          <v-list-item-subtitle>{{ item.description }}</v-list-item-subtitle>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-               <v-menu
-      transition="slide-x-transition"
-      bottom
-      right
-      :nudge-width="500"
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn text v-if="m === 0"
-          v-bind="attrs"
-          v-on="on"
+               <v-btn text v-if="m === 0"
+              :to="`/user/messages`"
           >
               <v-icon left dark>
                 mdi-email
               </v-icon>
               </v-btn>
               <v-btn text v-else
-          v-bind="attrs"
-          v-on="on">
+               :to="`/user/messages`">
                   <v-badge
               color="green"
               :content="m"
@@ -141,21 +108,35 @@
               </v-icon>
             </v-badge>
               </v-btn>
+              <div mdAndUp="true">
+ <v-menu
+      transition="slide-x-transition"
+      bottom
+      right
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          class="deep-orange"
+          color="primary"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+          Frequent Shortcuts
+        </v-btn>
       </template>
 
       <v-list>
         <v-list-item
-          v-for="item in messages"
+          v-for="item in shortcuts1"
           link
           :key="item.title"
-          @click="updateMessages(item.ID)"
+          :to="item.route"
         >
           <v-list-item-title>{{ item.title }}</v-list-item-title>
-          <v-list-item-subtitle>{{ item.description }}</v-list-item-subtitle>
         </v-list-item>
       </v-list>
-    </v-menu>
-
+    </v-menu >
       <v-menu
       transition="slide-x-transition"
       bottom
@@ -169,7 +150,7 @@
           v-bind="attrs"
           v-on="on"
         >
-          Shortcuts
+          Other Shortcuts
         </v-btn>
       </template>
 
@@ -184,6 +165,7 @@
         </v-list-item>
       </v-list>
     </v-menu>
+              </div>
     </v-app-bar>
 
     <v-main app>
@@ -194,6 +176,7 @@
 </template>
 
 <script>
+import cons from '../helpers/myconstants'
 import axios from '../axios'
 import foot from './foot'
   export default {
@@ -202,6 +185,7 @@ import foot from './foot'
         messages:[],
         m:0,
         n:0,
+        host:'',
     
      items: [
         {
@@ -259,6 +243,7 @@ import foot from './foot'
                 {title:'Suppliers', icon:'mdi-account-multiple-check-outline',route:'/suppliers/report'},
                 {title:'Payments', icon:'mdi  mdi-database-minus',route:'/payments/report'},
                 {title:'Receipts', icon:'mdi mdi-database-plus',route:'/receipts/report'},
+                {title:'P&l Account', icon:'mdi mdi-database-plus',route:'/profitandloss'},
           ],
           title: 'Reports',
         },
@@ -283,17 +268,24 @@ import foot from './foot'
           title: 'User',
         },
       ],
-      shortcuts:[
+         shortcuts1:[
         {title:'Create a Sale', icon:'mdi-cash-plus', route:'/invoice/create'},
         {title:'Create a Purchase', icon:'mdi-cash-minus',route:'/sinvoice/create'},
+        {title:'Create a product', icon:'mdi mdi-file-multiple', route:'/products/create'},
         {title:'Create a Customer', icon:'mdi mdi-account-multiple', route:'/customer/create'},
         {title:'Create a Supplier', icon:'mdi-account-multiple-check-outline',route:'/supplier/create'},
         {title:'Create a Expence', icon:'mdi mdi-clipboard-outline',route:'/expenceTran/create'},
         {title:'Create a Payment', icon:'mdi  mdi-database-minus',route:'/payments/create'},
         {title:'Create a Receipt', icon:'mdi  mdi-database-plus',route:'/receipts/create'},
+      ],
+      shortcuts:[
         {title:'Create a Discount', icon:'mdi mdi-window-minimize', route:'/discounts/create'},
         {title:'Create a Expence', icon:'mdi mdi-clipboard-outline',route:'/expence/create'},
         {title:'Create a Tax', icon:'mdi  mdi-file', route:'/tax/create'},
+        {title:'Create a MajorCagory', icon:'di-cards-outline', route:'/majorcat/create'},
+        {title:'Create a Category', icon:'mdi-cards', route:'/categorys/create'},
+        {title:'Create a PaymentForms', icon:'mdi mdi-clipboard-text',route:'/paymentform/create'},
+
       ]
      }),
     components:{
@@ -311,6 +303,7 @@ import foot from './foot'
     created() {
       this.fetchMessages()
       this.fetchNort()
+      this.host = cons.host
       // this.newInvoice()
     
   },
@@ -329,32 +322,6 @@ import foot from './foot'
                 this.errs = err.response.data
             }
       },
-    async updateMessages(id){
-                try{
-                  const {data} = await axios.put(`api/messages/${id}`)
-                      if(data){
-                      this.$router.push(this.redirect)
-                      }
-              }catch(err){
-                  this.snackbar = true
-                  this.errs = err.response.data
-
-              }
-
-        },
-      async updateNortification(id){
-                try{
-                  const {data} = await axios.put(`api/nortifications/${id}`)
-                      if(data){
-                      this.$router.push(this.redirect)
-                      }
-              }catch(err){
-                  this.snackbar = true
-                  this.errs = err.response.data
-
-              }
-
-        },
     async fetchMessages(){
         try{
             const {data} = await axios.get("api/messages/unread")

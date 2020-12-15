@@ -12,9 +12,9 @@
               max-width="150"
               contain
               class="pa-7 secondary rounded-circle "
-              :src="`http://localhost:5000/imgs/customers/${form.picture}`"
+              :src="`${host}/imgs/customers/${form.picture}`"
             ></v-img>
-            </div> 
+            </div>  
             </div>
             <v-card-title class="display-1">Name:   {{form.name}}</v-card-title>
             <v-card-title >Company:   {{form.company}}</v-card-title>
@@ -25,9 +25,18 @@
 </template>
 
 <script> 
+import cons from '@/helpers/myconstants'
 export default {
   props:{
     form: Object
+  }, 
+  data(){
+    return{
+        host:'',
+    }
+  },
+  created(){
+      this.host = cons.host
   }
 
 }

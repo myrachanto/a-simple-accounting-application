@@ -21,12 +21,11 @@
               </template></v-data-table>
         <messager :dialog="dialog" :closeDialogRead="closeDialogRead" :form="form"/>
 </div>
-</template>
+</template> 
 
 <script> 
 import moment from 'moment'
 import axios from '@/axios'
-import formatMoney from '@/helpers/currencyformat'
 import messager from '../modals/messageread'
 export default {
   props:{
@@ -43,27 +42,26 @@ export default {
       store: 'api/messages',
     }
   },
-        created(){
-      this.fetchData()
-  },
+  //       created(){
+  //     this.fetchData()
+  // },
 methods:{
       formatdate(d) {
           return moment(d).fromNow();
         },
     openDialogRead(id){
-      console.log(id)
       this.dialog = true
+      this.updateMessages(id)
       this.fetchData(id)
     },
     closeDialogRead(){
       this.dialog = false
+
     },
-      formatcurrency(d) {
-          return formatMoney(d)
-        },
      async fetchData(id){
       try{
         // console.log(this.store,this.$route.params.id)
+          // const {data} = await axios.get(`${this.store}`)
           const {data} = await axios.get(`${this.store}/${id}`)
           this.form = data
         }catch(err){
@@ -71,8 +69,35 @@ methods:{
         //   console.log(err)
         this.errs = err.response.data
         }
-    }
     },
+     async updateMessages(id){
+                try{
+                  const {data} = await axios.put(`api/messages/${id}`)
+                      if(data){
+                      this.$router.push(this.redirect)
+                      }
+              }catch(err){
+                  this.snackbar = true
+                  this.errs = err.response.data
+
+              }
+
+        },
+    },
+      // async updateNortification(id){
+      //           try{
+      //             const {data} = await axios.put(`api/nortifications/${id}`)
+      //                 if(data){
+      //                 this.$router.push(this.redirect)
+      //                 }
+      //         }catch(err){
+      //             this.snackbar = true
+      //             this.errs = err.response.data
+
+      //         }
+
+      //   },
+
 }
 </script>
 

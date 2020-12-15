@@ -152,6 +152,10 @@
                     >
                       <invoicecard :headers="cnheaders" :items="credits" />
                     </v-tab-item>
+                    <v-tab-item
+                    >
+                      <invoicecard :headers="headers1" :items="receipts" />
+                    </v-tab-item>
 
                     <v-tab-item
                     >
@@ -215,7 +219,7 @@ export default {
         timeout:3000,
         tab: null,
         items: [
-          'Profile', 'Invoices', 'Credit Notes', 'Remarks',
+          'Profile', 'Invoices', 'Credit Notes','Receipts', 'Remarks',
         ],
         invoiceheaders:[
          { text: 'Name', value: 'name' },
@@ -231,6 +235,17 @@ export default {
           { text: 'Invoice No', value: 'code' },
           { text: 'Description', value: 'description' },
           { text: 'Amount', value: 'total' },
+          { text: 'Actions', value: 'actions', sortable: false },
+        ],
+        receipts:[],
+          headers1:[
+          { text: 'Id', value: 'ID' },
+          { text: 'Name', value: 'customername' },
+          { text: 'Description', value: 'description' },
+          { text: 'Payment Form', value: 'type' },
+          { text: 'Clearance Date', value: 'clearancedate' },
+          { text: 'Amount', value: 'amount' },
+          { text: 'Status', value: 'status' },
           { text: 'Actions', value: 'actions', sortable: false },
         ],
         creditnotes:[],
@@ -285,10 +300,11 @@ export default {
           try{
             var p = this
               const {data} = await axios.get(`${this.store}/${p.$route.params.id}?dated=${p.dated}&searchq2=${p.searchq2}&searchq3=${p.searchq3}`)
-              const {customer, invoices,credits} = data
+              const {customer, invoices,credits,receipts} = data
               this.form = customer
               this.invoices = invoices
               this.credits = credits
+              this.receipts = receipts
             }catch(err){
             this.snackbar = true
             //   console.log(err)

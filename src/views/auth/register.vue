@@ -191,16 +191,7 @@
                                       <v-col
                                       cols="12"
                                       md="6"
-                                    >   <v-card>
-                                      <v-img
-                                        :src="`http://localhost:5000/imgs/products/${form.picture}`"
-                                        max-height="125"
-                                        class="grey darken-4"
-                                      ></v-img>
-                                      <v-card-title class="title">
-                                        {{form.name}}
-                                      </v-card-title>
-                                    </v-card>
+                                    >   
                                       </v-col>
                                   </v-row>
                                 </v-container>

@@ -154,6 +154,10 @@
                     >
                       <messageread :headers="sentheaders" :items="sent" />
                     </v-tab-item>
+                    <v-tab-item
+                    >
+                      <messageread :headers="nortsheaders" :items="nortifications" />
+                    </v-tab-item>
                   </v-tabs-items>
                     <v-card-actions>
               <v-btn
@@ -169,7 +173,7 @@
 
 
 
-          
+           
         </v-col></v-row>
         <message :dialog="dialog" :closeDialog="closeDialog" :users="users"/>
   </v-container>
@@ -209,7 +213,7 @@ export default {
         tab: null,
         users:[],
         items: [
-          'Profile', 'Inbox', 'Sent',
+          'Profile', 'Inbox', 'Sent','Nortifications'
         ],
         inbox:[],
         inboxheader:[
@@ -223,6 +227,12 @@ export default {
           { text: 'Title', value: 'title' },
           { text: 'Description', value: 'description' },
           { text: 'Sent', value: 'UpdatedAt' },
+          { text: 'Actions', value: 'actions', sortable: false },
+        ],
+        nortifications:[],
+        nortsheaders:[
+          { text: 'Title', value: 'title' },
+          { text: 'Description', value: 'description' },
           { text: 'Actions', value: 'actions', sortable: false },
         ],
 
@@ -262,6 +272,7 @@ export default {
             this.custom = false
           }
         }, 
+
   
   resetFilter(){
             this.search = ''
@@ -275,11 +286,12 @@ export default {
           try{
             var p = this
               const {data} = await axios.get(`${this.store}/${p.$store.getters.usercode}?dated=${p.dated}&searchq2=${p.searchq2}&searchq3=${p.searchq3}`)
-              const {user, sent,inbox,users} = data
+              const {user, sent,inbox,users,nortifications} = data
               this.form = user
               this.inbox = inbox
               this.sent = sent
               this.users = users
+              this.nortifications = nortifications
         }catch(err){
          this.snackbar = true
         //   console.log(err)
