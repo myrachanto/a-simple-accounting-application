@@ -82,7 +82,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
-          <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+          <v-btn color="blue darken-1" text @click="save(form)"> Save </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -128,7 +128,7 @@ export default {
               dialog: false,
               itemos:[
                 "canceled",
-                "cleared",
+                "allocate",
               ],
             
           }
@@ -164,11 +164,13 @@ export default {
           });
         },
 
-         async save() {
+         async save(form) {
           try {
+            console.log(form)
             let fd = new FormData();
             fd.append("code", this.form.code);
             fd.append("status", this.status);
+            fd.append("amount", this.form.amount);
             await axios.post(this.store, fd, {
               "Content-Type": "multipart/form-data",
             });
@@ -180,28 +182,28 @@ export default {
             this.errs = err.response.data
           }
         },
-       async  alloc(val){
-           if(this.payment.amount > val.total){
-             this.allamount = val.total
-           }else(this.payment.amount < val.total)
-           this.allamount = this.payment.amount
-           try {
-           console.log(val)
-                let fd = new FormData();
-                fd.append("suppliercode", this.payment.suppliercode);
-                fd.append("paymentcode", this.payment.code);
-                fd.append("invoicecode", val.code);
-                fd.append("amount", this.allamount);
-                fd.append("usercode", this.$store.getters.usercode);
-                await axios.post(this.source, fd, {
-                  "Content-Type": "multipart/form-data",
-                });
-                this.GetData()
-              } catch (err) {
-                this.snackbar = true;
-                this.errs = err.response.data
-              }
-         },
+      //  async  alloc(val){
+      //      if(this.payment.amount > val.total){
+      //        this.allamount = val.total
+      //      }else(this.payment.amount < val.total)
+      //      this.allamount = this.payment.amount
+      //      try {
+      //      console.log(val)
+      //           let fd = new FormData();
+      //           fd.append("itemcode", this.payment.itemcode);
+      //           fd.append("paymentcode", this.payment.code);
+      //           fd.append("invoicecode", val.code);
+      //           fd.append("amount", this.allamount);
+      //           fd.append("usercode", this.$store.getters.usercode);
+      //           await axios.post(this.store, fd, {
+      //             "Content-Type": "multipart/form-data",
+      //           });
+      //           this.GetData()
+      //         } catch (err) {
+      //           this.snackbar = true;
+      //           this.errs = err.response.data
+      //         }
+      //    },
           async GetData(){
             try{
               const {data} = await axios.get(this.source)

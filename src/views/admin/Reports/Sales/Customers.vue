@@ -158,7 +158,17 @@
                     'items-per-page-options': [5,10, 20, 30, 40, 50]
                   }"
                 :items-per-page="10"
-                ></v-data-table>
+                >
+                 <template v-slot:[`item.statement`]="{ item }">
+              <v-icon
+                small
+                class="mr-2"
+                @click="View(item.customercode)"
+              >
+                mdi-eye
+              </v-icon>
+          
+            </template></v-data-table>
               </v-col>
             </v-row>
   </v-container>
@@ -210,11 +220,15 @@ export default {
     Dcard
   },
   created() {
-      this.GetData()
+      this.GetData() 
       // this.newInvoice()
     
   },
   methods:{
+    View(code){
+
+      this.$router.push(`/customer/statement/${ code }`)
+    } ,
         selected(val){
           if (val === 'custom'){
             this.custom = true
@@ -223,8 +237,7 @@ export default {
           }
         },
    resetFilter(){
-            this.search = ''
-            this.dated = ''
+            this.dated = 'In the last 30days'
             this.searchq2 = ''
             this.searchq3 = ''
             this.custom = false

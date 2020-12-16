@@ -5,7 +5,7 @@
     <v-toolbar
     
     >
-<v-toolbar-title>Customer Details</v-toolbar-title>
+<v-toolbar-title>Product Details</v-toolbar-title>
 <v-spacer></v-spacer>
 
     </v-toolbar>

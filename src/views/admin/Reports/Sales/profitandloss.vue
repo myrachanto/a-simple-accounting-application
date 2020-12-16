@@ -188,7 +188,7 @@
                 cols="12"
                 sm="8"
                 md="4">
-                ({{formatcurrency(cost)}})
+                <span class="cost">({{formatcurrency(cost)}})</span>
                 </v-col> 
             </v-row>
 
@@ -411,12 +411,12 @@ export default {
 <style>
 span.dblUnderlined { border-bottom: 3px double; }
 .cost {
-  background-color: rgb(255, 187, 0);
+  color: rgb(255, 187, 0);
 }
 .profit {
-  background-color: green;
+  color: green;
 }
 .loss {
-  background-color: red;
+  color: red;
 }
 </style>

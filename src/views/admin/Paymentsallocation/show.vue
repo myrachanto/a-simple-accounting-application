@@ -1,33 +1,24 @@
 <template>
 <back>
   <v-container>
-    <v-row><v-col>
-       <v-toolbar
-    >
-      <v-toolbar-title>{{title}}</v-toolbar-title>
-<v-spacer></v-spacer>
-
-      <v-btn >
-        Pdf
-      </v-btn>
-
-      <v-btn >
-        Excel
-      </v-btn>
-    </v-toolbar>
-      </v-col></v-row>
     <v-row><v-col col="12" md="7">
       <div class="overline mb-4 green--text ">
       <h1>All Unallocated invoices</h1>
       </div>
       </v-col>
       <v-col>
-      <div class="overline green--text"><h1>Payment amount to be allocated : {{payment.amount}}</h1></div>
+      <div class="overline green--text"><h1>Payment amount to be allocated : {{formatcurrency(payment.amount)}}</h1></div>
       </v-col></v-row>
     <v-row><v-col col="12" md="8">
       </v-col>
       <v-col>
-      <div class="overline green--text"><h1>Pay Amount allocated : {{allamount}}</h1></div>
+      <div class="overline green--text"><h1>Pay Amount allocated : {{formatcurrency(allamount)}}</h1></div>
+      </v-col></v-row>
+
+    <v-row><v-col col="12" md="8">
+      </v-col>
+      <v-col>
+      <div class="overline green--text"><h1>Bal After allocation : <span :class="balance >= 0 ? 'suc':'dan'">{{formatcurrency(balance)}}</span></h1></div>
       </v-col></v-row>
     <v-row><v-col>
        <template>
@@ -43,6 +34,23 @@
     :items-per-page="5"
     class="elevation-1"
   > 
+  
+  <template v-slot:[`item.tax`]="{ item }">
+      
+        {{ formatcurrency(item.tax) }}
+    </template>
+  <template v-slot:[`item.discount`]="{ item }">
+      
+        {{ formatcurrency(item.discount) }}
+    </template>
+  <template v-slot:[`item.total`]="{ item }">
+      
+        {{ formatcurrency(item.total) }}
+    </template>
+  <template v-slot:[`item.balance`]="{ item }">
+      
+        {{ formatcurrency(item.balance) }}
+    </template>
             <template v-slot:[`item.actions`]="{ item }">
         <v-simple-checkbox
           v-model="item.actions"
@@ -127,6 +135,7 @@ export default {
              invoices:[],
              payment:{},
              allamount:0,
+             balance:0,
              bal:0
             
           }
@@ -144,12 +153,14 @@ export default {
        async  alloc(val){
            if(this.payment.amount > val.total){
              this.allamount = val.total
+           this.balance = this.payment.amount - val.total 
            }else(this.payment.amount < val.total)
            this.allamount = this.payment.amount
+           this.balance = this.payment.amount - val.total 
            try {
            console.log(val)
                 let fd = new FormData();
-                fd.append("suppliercode", this.payment.suppliercode);
+                fd.append("itemcode", this.payment.itemcode);
                 fd.append("paymentcode", this.payment.code);
                 fd.append("invoicecode", val.code);
                 fd.append("amount", this.allamount);
@@ -180,5 +191,10 @@ export default {
 </script>
 
 <style>
-
+.dan{
+  color: red;
+}
+.suc{
+  color:green;
+}
 </style>

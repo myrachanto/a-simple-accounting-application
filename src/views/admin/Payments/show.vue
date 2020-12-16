@@ -15,7 +15,7 @@
                                     <v-card color="basil">
                                       <v-card-title class="text-center justify-center py-6">
                                         <h1 class="font-weight-bold display-1 basil--text">
-                                         {{form.Name}}
+                                         {{form.itemname}}
                                         </h1>
 
                                       </v-card-title>
@@ -24,11 +24,11 @@
                                             flat
                                           >
                                             <v-card-text>
-                                              <v-card-title class="text-center display-1">Name: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.suppliername}}</span></v-card-title>
+                                              <v-card-title class="text-center display-1">Name: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.itemname}}</span></v-card-title>
                                               <v-card-title class="text-center display-1">Description: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.description}}</span></v-card-title>
                                               <v-card-title class="text-center display-1">Payment Form: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.type}}</span></v-card-title>
-                                              <v-card-title class="text-center display-1">Clearnce Date: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.clearancedate}}</span></v-card-title>
-                                              <v-card-title class="text-center display-1">Amount: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.amount}} /=</span></v-card-title>
+                                              <v-card-title class="text-center display-1">Clearnce Date: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{formatdate(form.clearancedate)}}</span></v-card-title>
+                                              <v-card-title class="text-center display-1">Amount: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{formatcurrency(form.amount)}} /=</span></v-card-title>
                                               <v-card-title class="text-center display-1">Status: <span class="text-center ml-3 display-1 teal--text text--accent-3">{{form.status}}</span></v-card-title>
                                            </v-card-text>
                                           </v-card>
@@ -52,6 +52,8 @@
 </template>
 
 <script>
+import formatMoney from '@/helpers/currencyformat'
+import moment from 'moment'
  import axios from '@/axios'
 
 import back from '@/layouts/back'
@@ -79,6 +81,12 @@ export default {
       this.fetchData()
   },
   methods:{
+      formatcurrency(d) {
+          return formatMoney(d)
+        },
+      formatdate(d) {
+          return moment(d).format('L');
+        },
     Edit(id){
       this.$router.push(`${this.redirect}/${id}/edit`)
     },

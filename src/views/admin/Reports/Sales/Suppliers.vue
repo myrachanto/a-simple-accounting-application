@@ -56,7 +56,7 @@
       cols="12"
       sm="6"
       md="3"
-      v-if="custom"
+      v-if="dated === 'custom'"
     >
       <v-menu
         v-model="menu2"
@@ -158,7 +158,18 @@
                     'items-per-page-options': [5,10, 20, 30, 40, 50]
                   }"
                 :items-per-page="10"
-                ></v-data-table>
+                >
+                 <template v-slot:[`item.statement`]="{ item }">
+              <v-icon
+                small
+                class="mr-2"
+                @click="View(item.suppliercode)"
+              >
+                mdi-eye
+              </v-icon>
+          
+            </template>
+                </v-data-table>
               </v-col>
             </v-row>
   </v-container>
@@ -215,6 +226,11 @@ export default {
     
   },
   methods:{
+
+    View(code){
+
+      this.$router.push(`/supplier/statement/${ code }`)
+    } ,
         selected(val){
           if (val === 'custom'){
             this.custom = true

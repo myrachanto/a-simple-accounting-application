@@ -10,6 +10,14 @@
               
                 {{ formatcurrency(item.total) }}
             </template>
+             <template v-slot:[`item.clearancedate`]="{ item }">
+              
+                {{ formatdate(item.clearancedate) }}
+            </template>
+             <template v-slot:[`item.amount`]="{ item }">
+              
+                {{ formatcurrency(item.amount) }}
+            </template>
             <template v-slot:[`item.actions`]="{ item }">
               <v-icon
                 small
@@ -22,6 +30,7 @@
 </template>
 
 <script> 
+import moment from 'moment'
 import formatMoney from '@/helpers/currencyformat'
 export default {
   props:{
@@ -30,6 +39,10 @@ export default {
   },
 
 methods:{
+
+      formatdate(d) {
+          return moment(d).format('L');
+        },
       formatcurrency(d) {
           return formatMoney(d)
         },

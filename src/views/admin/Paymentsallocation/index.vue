@@ -66,7 +66,7 @@ export default {
               show: '/payments/allocation',
               headers:[
                 { text: 'Id', value: 'ID' },
-                { text: 'Name', value: 'suppliername' },
+                { text: 'Name', value: 'itemname' },
                 { text: 'Description', value: 'description' },
                 { text: 'Payment Form', value: 'type' },
                 { text: 'Clearance Date', value: 'clearancedate' },

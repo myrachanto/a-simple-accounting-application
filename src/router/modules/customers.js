@@ -1,6 +1,7 @@
 import store from '@/store'
 import Customer from '@/views/admin/Customers'
 import CustomerForm from '@/views/admin/Customers/form'
+import CustomerStatement from '@/views/admin/Customers/Statement'
 import CustomerShow from '@/views/admin/Customers/show'
 import CustomerEdit from '@/views/admin/Customers/edit'
 
@@ -16,6 +17,14 @@ export const customers = [
     }
   }},
   {path: "/customer/create",component: CustomerForm, beforeEnter(to, from, next) {
+    if (token && isadmin){
+      next()
+    }else{
+      next('/')
+    }
+  }},
+
+  {path: "/customer/statement/:code",component: CustomerStatement, beforeEnter(to, from, next) {
     if (token && isadmin){
       next()
     }else{

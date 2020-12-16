@@ -252,7 +252,7 @@ export default {
               dialog: false,
               headers:[
                 { text: 'Id', value: 'ID' },
-                { text: 'Name', value: 'suppliername' },
+                { text: 'Name', value: 'itemname' },
                 { text: 'Description', value: 'description' },
                 { text: 'Payment Form', value: 'type' },
                 { text: 'Clearance Date', value: 'clearancedate' },
@@ -262,7 +262,7 @@ export default {
               ],
                headers1:[
                 { text: 'Id', value: 'ID' },
-                { text: 'Name', value: 'suppliername' },
+                { text: 'Name', value: 'itemname' },
                 { text: 'Description', value: 'description' },
                 { text: 'Payment Form', value: 'type' },
                 { text: 'Clearance Date', value: 'clearancedate' },
@@ -332,11 +332,12 @@ export default {
             this.editedIndex = -1;
           });
         },
-         async save() {
+         async save() { 
           try {
             let fd = new FormData();
             fd.append("code", this.form.code);
             fd.append("status", this.status);
+                fd.append("usercode", this.$store.getters.usercode);
             await axios.post("api/payments/transaction", fd, {
               "Content-Type": "multipart/form-data",
             });

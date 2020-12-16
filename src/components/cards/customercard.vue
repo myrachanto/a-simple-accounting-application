@@ -2,25 +2,25 @@
   <v-card v-if="form"
             class="mx-auto"
           >
-           <div
-           class="height=200px"
-           style="background:#CFD8DC"
-           >
-            <div class="d-flex justify-center">
-              <v-img v-if="form.picture"
-              max-height="150"
-              max-width="150"
-              contain
-              class="pa-7 secondary rounded-circle "
-              :src="`${host}/imgs/customers/${form.picture}`"
-            ></v-img>
-            </div>  
-            </div>
+          
+            <v-container>
+            <v-row>
+              <v-col md="6">
             <v-card-title class="display-1">Name:   {{form.name}}</v-card-title>
             <v-card-title >Company:   {{form.company}}</v-card-title>
             <v-card-title >Phone:   {{form.phone}}</v-card-title>
             <v-card-title >Email:   {{form.email}}</v-card-title>
-
+            </v-col>
+              <v-col md="6">
+                <v-img v-if="form.picture"
+              max-height="350"
+              max-width="350"
+              contain
+              class="pa-7 "
+              :src="`${host}/imgs/customers/${form.picture}`"
+            ></v-img>
+              </v-col></v-row>
+            </v-container>
           </v-card>
 </template>
 

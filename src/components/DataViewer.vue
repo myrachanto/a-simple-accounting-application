@@ -12,13 +12,6 @@
         Create
       </v-btn>
 
-      <v-btn >
-        Pdf
-      </v-btn>
-
-      <v-btn >
-        Excel
-      </v-btn>
     </v-toolbar>
     <template>
   <v-expansion-panels>

@@ -8,7 +8,7 @@
            >
             <div class="d-flex justify-center">
               
-            </div> 
+            </div>  
             </div> -->
             <v-container>
             <v-row>
@@ -23,10 +23,10 @@
               <v-col md="6">
                 <v-img v-if="form.picture"
               max-height="350"
-              max-width="250"
+              max-width="350"
               contain
               class="pa-7 "
-              :src="`http://localhost:2000/imgs/products/${form.picture}`"
+              :src="`${host}/imgs/products/${form.picture}`"
             ></v-img>
               </v-col></v-row>
             </v-container>
@@ -36,9 +36,18 @@
 </template>
 
 <script>
+import cons from '@/helpers/myconstants'
 export default {
   props:{
     form: Object
+  },
+  data(){
+    return{
+        host:'',
+    }
+  },
+  created(){
+      this.host = cons.host
   }
 
 }

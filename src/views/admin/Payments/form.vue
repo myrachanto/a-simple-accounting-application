@@ -373,7 +373,7 @@ export default {
    async save(){
       try{
             let fd = new FormData();
-                 fd.append("suppliername", this.supplier)
+                 fd.append("name", this.supplier)
                  fd.append("amount", this.form.amount)
                  fd.append("description", this.form.description)
                  fd.append("clearancedate", this.form.clearancedate)

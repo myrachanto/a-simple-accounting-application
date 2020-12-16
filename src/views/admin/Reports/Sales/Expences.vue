@@ -111,7 +111,7 @@
                 class="auto"
                 cols="12"
                 sm="8"
-                md="3">
+                md="4">
                  <Dcard :title="totals.Name" :total="formatcurrency(totals.Total)" 
                  :desc="totals.Description" :icon="`mdi-cash-multiple`" />
                 </v-col>
@@ -119,22 +119,15 @@
                 class="auto"
                 cols="12"
                 sm="8"
-                md="3">
+                md="4">
                  <Dcard :title="directexpences.Name" :total="formatcurrency(directexpences.Total)" :desc="directexpences.Description" :icon="`mdi-cards-outline`"/>
                 </v-col>
                 <v-col  v-if="indirectexpences"
                 class="auto"
                 cols="12"
                 sm="8"
-                md="3">
+                md="4">
                  <Dcard :title="indirectexpences.Name" :total="formatcurrency(indirectexpences.Total)" :desc="indirectexpences.Description" :icon="`mdi-cash-usd-outline`" />
-                </v-col> 
-                <v-col  v-if="others"
-                class="auto"
-                cols="12"
-                sm="8"
-                md="3">
-                 <Dcard :title="others.Name" :total="formatcurrency(others.Total)" :desc="others.Description" :icon="`mdi-cash-usd-outline`" />
                 </v-col> 
       </v-row>
 
@@ -186,11 +179,12 @@ export default {
       errs:{},
       source: 'api/expencetransanctions/report',
       headers:[
-          { text: 'Name', value: 'name' },
+          { text: 'Name', value: 'itemname' },
           { text: 'Invoice No', value: 'code' },
           { text: 'Description', value: 'description' },
           { text: 'Amount', value: 'amount' },
           { text: 'Mode', value: 'mode' },
+          { text: 'Direct', value: 'direct' },
       ],
              dated:'In the last 30days',
             searchq2 : '',

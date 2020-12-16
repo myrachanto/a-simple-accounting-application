@@ -209,6 +209,7 @@
                                   ></v-select>
                                       </validation-provider>
                                     </v-col>
+                                    
                                   </v-row>
 
                                   <v-row>
@@ -255,6 +256,22 @@
                                             @input="menu = false"
                                           ></v-date-picker>
                                         </v-menu>
+                                    </v-col>
+                                    <v-col
+                                      cols="12"
+                                      md="4"
+                                    ><validation-provider
+                                        v-slot="{ errors }"
+                                        name="direct"
+                                        rules="required|"
+                                      >
+                                     <v-select
+                                     v-model="form.direct"
+                                    :items="itemos2"
+                                    :error-messages="errors"  
+                                    label="Direct"
+                                  ></v-select>
+                                      </validation-provider>
                                     </v-col>
                                   </v-row>
                                    <v-row>
@@ -338,6 +355,7 @@ export default {
             description:'',
             code:'',
             chequeno:'',
+            direct:'',
             expirydate:null
         },
         menu: false,
@@ -346,6 +364,10 @@ export default {
         itemos:[
           "pending",
           "cleared",
+        ],
+        itemos2:[
+          "direct",
+          "inderect",
         ],
         errs:{},
         pay:'',
@@ -373,13 +395,14 @@ export default {
    async save(){
       try{
             let fd = new FormData();
-                 fd.append("suppliername", this.expence)
+                 fd.append("name", this.expence)
                  fd.append("amount", this.form.amount)
                  fd.append("description", this.form.description)
                  fd.append("clearancedate", this.form.clearancedate)
                  fd.append("status", this.form.status)
                  fd.append("expirydate", this.form.expirydate)
                  fd.append("chequeno", this.form.chequeno)
+                 fd.append("direct", this.form.direct)
                  fd.append("type", this.pay)
                  fd.append("code", this.code)
                 fd.append("usercode", this.$store.getters.usercode);
